@@ -4,17 +4,20 @@
  */
 package colorslittlepark;
 
+//import com.mysql.jdbc.Connection;
+
 /**
  *
  * @author Jared
  */
 public class Home extends javax.swing.JFrame {
-
+     
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
