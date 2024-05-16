@@ -51,5 +51,21 @@ public class ConexionBD {
         ConexionBD conexionBD = new ConexionBD();
         conexionBD.conector();
     }
+
+        public PreparedStatement prepareStatement(String sql) throws SQLException {
+        if (con == null) {
+            throw new SQLException("La conexión no está establecida");
+        }
+        return con.prepareStatement(sql);
+    }
+
+        public void close() {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+            }
+        }
+        }
 }
 
