@@ -55,14 +55,12 @@ public class InicioDeSesion extends javax.swing.JFrame {
         jPanelTransparente1.add(jLabel1);
         jLabel1.setBounds(0, 140, 300, 30);
 
-        txtPassword.setBackground(new java.awt.Color(172, 200, 217));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPassword.setBorder(null);
         jPanelTransparente1.add(txtPassword);
         txtPassword.setBounds(50, 270, 200, 30);
 
-        txtUsuario.setBackground(new java.awt.Color(172, 200, 217));
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(51, 51, 51));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
