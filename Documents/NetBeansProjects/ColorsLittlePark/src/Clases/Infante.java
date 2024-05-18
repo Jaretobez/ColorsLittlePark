@@ -10,4 +10,28 @@ package Clases;
  */
 public class Infante {
     
+    public void RegistrarInfante(){
+    
+    
+    
+    }
+    
+    public void ModificarInfante(){
+    
+    
+    
+    }
+
+    public void EliminarInfante(){
+    
+    
+    
+    }
+
+    public void ConsultarInfante(){
+    
+    
+    
+    }    
+    
 }

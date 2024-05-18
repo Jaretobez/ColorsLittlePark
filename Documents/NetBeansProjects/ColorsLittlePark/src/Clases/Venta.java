@@ -10,4 +10,17 @@ package Clases;
  */
 public class Venta {
     
+    public void AgregarVenta(){
+    
+    
+    
+    }  
+    
+    
+    public void MostrarVenta(){
+    
+    
+    
+    }  
+    
 }

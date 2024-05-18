@@ -10,4 +10,30 @@ package Clases;
  */
 public class Tutor {
     
+    
+    public void RegistrarTutor(){
+    
+    
+    
+    }
+    
+    public void ModificarTutor(){
+    
+    
+    
+    }
+
+    public void EliminarTutor(){
+    
+    
+    
+    }
+
+    public void ConsultarITutor(){
+    
+    
+    
+    }  
+    
+    
 }
