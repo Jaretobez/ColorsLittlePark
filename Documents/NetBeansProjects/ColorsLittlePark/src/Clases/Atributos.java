@@ -49,4 +49,27 @@ public class Atributos {
     idturno=0; usuario=null; contraseña=null;
     
     }
+    
+    // Datos del INFANTE /////////////////////////////////////////////////////////////////////
+    public void setIdInfante(int x){   
+   idinf = x;
+   }
+   public int getIdInfante(){
+      return idinf;
+   }
+   
+   public void setNombreInfante(String x){   
+   nominf = x;
+   }
+   public String getNombreInfante(){
+      return nominf;
+   }
+   
+   public void setApellidosInfante(String x){   
+   apeinf = x;
+   }
+   public String getApellidosInfante(){
+      return apeinf;
+   } 
+      
 }
