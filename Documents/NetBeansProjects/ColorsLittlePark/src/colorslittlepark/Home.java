@@ -67,44 +67,31 @@ public class Home extends javax.swing.JFrame {
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuLayout.createSequentialGroup()
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jButton1))
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton2)))
-                .addContainerGap(77, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(96, 96, 96)
+                .addGap(46, 46, 46)
                 .addComponent(jButton1)
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         header.setBackground(new java.awt.Color(51, 153, 255));
         header.setPreferredSize(new java.awt.Dimension(810, 150));
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
-        );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

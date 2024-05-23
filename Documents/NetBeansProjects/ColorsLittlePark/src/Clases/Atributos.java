@@ -11,8 +11,8 @@ package Clases;
 public class Atributos {
     
     //INFANTES
-    private String nominf, apeinf;
-    private int idinf, edad, fk_numtutor_inf;
+    private String nominf, apeinf, fk_numtutor_inf;
+    private int idinf, edad;
     
     //TUTORES
     private String nomtutor, apetutor;
@@ -40,7 +40,7 @@ public class Atributos {
     private String usuario, contraseña;
     
         public Atributos(){
-    nominf=null; apeinf=null; idinf=0; edad=0; fk_numtutor_inf=0;
+    nominf=null; apeinf=null; idinf=0; edad=0; fk_numtutor_inf=null;
     numtutor=0; nomtutor=null; apetutor=null;
     folio=0; fk_idinf_sell=0; monto=0; tipo_pago=null; datetime_venta=null; tiempo=null;
     idactivo=0; fk_idinf_act=0; fk_numtutor_act=0;
@@ -70,6 +70,20 @@ public class Atributos {
    }
    public String getApellidosInfante(){
       return apeinf;
-   } 
+   }
+   
+       public void setEdadInfante(int x){   
+   edad = x;
+   }
+   public int getEdadInfante(){
+      return edad;
+   }
+   
+          public void setTutorInfante(String x){   
+   fk_numtutor_inf = x;
+   }
+   public String getTutorInfante(){
+      return fk_numtutor_inf;
+   }
       
 }
