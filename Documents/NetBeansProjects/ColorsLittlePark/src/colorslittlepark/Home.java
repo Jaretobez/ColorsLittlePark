@@ -9,11 +9,6 @@ package colorslittlepark;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 
-
-/**
- *
- * @author Jared
- */
 public class Home extends javax.swing.JFrame {
      
     /**
@@ -50,9 +45,11 @@ public class Home extends javax.swing.JFrame {
 
         Menu.setBackground(new java.awt.Color(51, 102, 255));
         Menu.setPreferredSize(new java.awt.Dimension(270, 640));
+        Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo200x170.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
+        Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 205, -1));
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -60,34 +57,10 @@ public class Home extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        Menu.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 220, -1, -1));
 
         jButton2.setText("jButton2");
-
-        javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
-        Menu.setLayout(MenuLayout);
-        MenuLayout.setHorizontalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-            .addGroup(MenuLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
-        MenuLayout.setVerticalGroup(
-            MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        Menu.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 261, -1, -1));
 
         header.setBackground(new java.awt.Color(51, 153, 255));
         header.setPreferredSize(new java.awt.Dimension(810, 150));
@@ -126,7 +99,7 @@ public class Home extends javax.swing.JFrame {
             .addComponent(Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
+                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(Mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
