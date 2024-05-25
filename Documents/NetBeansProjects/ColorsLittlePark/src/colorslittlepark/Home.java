@@ -49,7 +49,7 @@ public class Home extends javax.swing.JFrame {
         Menu.setPreferredSize(new java.awt.Dimension(270, 640));
         Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\chris\\OneDrive\\Documentos\\NetBeansProjects\\edjchejc\\Logo Tienda de moda Infantil Divertido Colores (1) (2).jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/7077274c-7c15-4a8c-9346-ce4a9e53cda4.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, 170));
 
