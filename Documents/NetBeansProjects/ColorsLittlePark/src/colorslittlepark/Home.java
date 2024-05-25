@@ -28,41 +28,32 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         background = new javax.swing.JPanel();
         Mensaje = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
-        Mensaje.setText("hola mundo ");
+        Mensaje.setFont(new java.awt.Font("Segoe UI Historic", 1, 36)); // NOI18N
+        Mensaje.setText("BIENVENIDOS A COLOR´S LITTLE PARK.");
 
-        Menu.setBackground(new java.awt.Color(51, 102, 255));
+        Menu.setBackground(new java.awt.Color(255, 255, 51));
         Menu.setPreferredSize(new java.awt.Dimension(270, 640));
         Menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo200x170.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\chris\\OneDrive\\Documentos\\NetBeansProjects\\edjchejc\\Logo Tienda de moda Infantil Divertido Colores (1) (2).jpg")); // NOI18N
         jLabel1.setText("jLabel1");
-        Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 205, -1));
+        Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, 170));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        Menu.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 220, -1, -1));
-
-        jButton2.setText("jButton2");
-        Menu.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 261, -1, -1));
-
-        header.setBackground(new java.awt.Color(51, 153, 255));
+        header.setBackground(new java.awt.Color(102, 255, 102));
         header.setPreferredSize(new java.awt.Dimension(810, 150));
         header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -88,11 +79,12 @@ public class Home extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE))
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(Mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(210, 210, 210)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(backgroundLayout.createSequentialGroup()
+                .addGap(217, 217, 217)
+                .addComponent(Mensaje)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,10 +115,6 @@ public class Home extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -148,9 +136,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel background;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
