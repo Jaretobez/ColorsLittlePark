@@ -115,8 +115,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
     
         public static double calcularMontoTotal(int tiempoTotal) {
         // Convertir el tiempo total de Timestamp a minutos
-     //   long totalMinutes = TimeUnit.MILLISECONDS.toMinutes(tiempoTotal.getTime());
-        
+     //   long totalMinutes = TimeUnit.MILLISECONDS.toMinutes(tiempoTotal.getTime());        
         // Reglas de cobro
         if (tiempoTotal <= 5) {
             return 0;
@@ -128,7 +127,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
             
             // Calcular las medias horas adicionales
             while (tiempoTotal > 0) {
-                if (tiempoTotal <= 35) {
+                if (tiempoTotal <= 5) {
                     // Tolerancia de 5 minutos
                     break;
                 }
@@ -154,8 +153,8 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
      // Aquí defines los valores que quieres ingresar
     String tipo_pago = "tarjeta";
     int fk_activo = 15298;
-    Time hora_entrada = Time.valueOf("08:05:00");
-    Time hora_salida = Time.valueOf("10:34:00"); 
+    Time hora_entrada = Time.valueOf("08:00:00");
+    Time hora_salida = Time.valueOf("09:06:00"); 
     venta.AgregarVenta(tipo_pago, fk_activo, hora_entrada, hora_salida);
   /*  
     int minutos_totales = calcularTiempoTotal(hora_entrada, hora_salida);
