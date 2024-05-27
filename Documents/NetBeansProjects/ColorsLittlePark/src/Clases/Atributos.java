@@ -85,5 +85,15 @@ public class Atributos {
    public String getTutorInfante(){
       return fk_numtutor_inf;
    }
+   
+   
+   //VENTA
+   
+     public void setFolio(int x){   
+   folio = x;
+   }
+   public int getFolio(){
+      return folio;
+   }
       
 }

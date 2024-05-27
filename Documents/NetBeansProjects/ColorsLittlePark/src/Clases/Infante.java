@@ -24,21 +24,25 @@ public class Infante {
     }
 
     public void RegistrarInfante(String nombre, String apellido, int edad, String tutor) {
-        int id = 0;
-        boolean error = false;
+int id = 0;
+boolean error = false;
 
-        try {
-            id = generarID();
-            // Verificar si el ID de infante ya existe
-            if (VerificaId(id)) {
-                System.out.println("Error: El ID de Infante ya existe en la base de datos.");
-                return;
-            }
-            a.setIdInfante(id);
-        } catch (RuntimeException e) {
-            System.out.println("Error: " + e.getMessage());
-            error = true;
+try {
+    boolean idExiste;
+    do {
+        id = generarID();
+        idExiste = VerificaId(id);
+        if (idExiste) {
+            System.out.println("El ID de Infante ya existe en la base de datos. Generando un nuevo ID...");
         }
+    } while (idExiste);
+    
+    // Una vez que se encuentra un ID único, asignarlo al infante
+    a.setIdInfante(id);
+} catch (RuntimeException e) {
+    System.out.println("Error: " + e.getMessage());
+    error = true;
+}
 
         //       nombre = a.getNombreInfante();
         //      apellido = a.getApellidosInfante();
@@ -169,25 +173,25 @@ public class Infante {
         conexionBD.conector();
 
 //CONSULTAR 
-        infante.ConsultarInfante(9056);
-
+   //     infante.ConsultarInfante(9056);
+/*
 //INSERTAR
-        /*  // Aquí defines los valores que quieres ingresar
-    String nombre = "edgar";
-    String apellido = "benitez";
-    int edad = 7; // Por ejemplo, la edad es 5
-    String tutor = "9381224799"; // Por ejemplo, el tutor es 1234567890    
-    infante.RegistrarInfante(nombre, apellido, edad, tutor);
-  
+     // Aquí defines los valores que quieres ingresar
+    String nombre = "pedro";
+    String apellido = "colunga";
+    int edad = 8; // Por ejemplo, la edad es 5
+    String tutor = "9381111111"; // Por ejemplo, el tutor es 1234567890    
+    infante.RegistrarInfante(nombre, apellido, edad, tutor);*/ 
+ 
 //ELIMINAR 
-    infante.EliminarInfante(2251);*/
-//MODIFICAR
+ //   infante.EliminarInfante(4);
+/* //MODIFICAR
         int id = 8787;
         String newnom = "chavo";
         String newape = "delocho";
         int newedad = 56;
         infante.ModificarInfante(id, newnom, newape, newedad);
-
+*/
     }
 
 }
