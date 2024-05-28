@@ -5,14 +5,10 @@
 package Formularios;
 
 import Clases.ConexionBD;
-import Clases.Tutor;
-import javax.swing.table.DefaultTableModel;
-//import static java.awt.PageAttributes.MediaType.D;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -22,6 +18,7 @@ public class Tutores extends javax.swing.JFrame {
     ConexionBD con = new ConexionBD();
    
  DefaultTableModel dtm=new DefaultTableModel();
+ 
  Tutor tutor = new Tutor();
     /**
      * Creates new form Tutores
@@ -30,66 +27,15 @@ public class Tutores extends javax.swing.JFrame {
         initComponents();
         MostrarTabla();
   //      a = new Atributos();
-        this.setLocationRelativeTo(null);
-        String[] titulo = new String[]{"idActivo", "infante", "tutor"};
-        dtm.setColumnIdentifiers(titulo);
-        tblTutor.setModel(dtm);        
+        this.setLocationRelativeTo(null); 
+         initialize();
     }
 
     
-     void Agregar() {
-        String  telefono = txtTelefono.getText();
-       String nombre = txtNomTutor.getText();
-        String apellido = txtApeTutor.getText();
-        // Agregar a la base de datos
-        tutor.RegistrarTutor(telefono, nombre, apellido);
-        // Agregar a la tabla
-        dtm.addRow(new Object[]{telefono, nombre, apellido});
-    }
     
-    void Eliminar() {
-        int fila = tblTutor.getSelectedRow();
-        if (fila >= 0) {
-            String telefono = (String) dtm.getValueAt(fila, 0);
-            // Eliminar de la base de datos
-            tutor.EliminarTutor(telefono);
-            // Eliminar de la tabla
-            dtm.removeRow(fila);
-        }
-    }
-    
-    void Actualizar() {
-        int fila = tblTutor.getSelectedRow();
-        if (fila >= 0) {
-            String telefono = txtTelefono.getText();
-            String nombre = txtNomTutor.getText();
-            String apellido = txtApeTutor.getText();
-            // Actualizar en la base de datos
-            tutor.ModificarTutor(telefono, nombre, apellido);
-            // Actualizar en la tabla
-            dtm.setValueAt(telefono, fila, 0);
-            dtm.setValueAt(nombre, fila, 1);
-            dtm.setValueAt(apellido, fila, 2);
-        }
-    }
-    
-    
-    void Consultar() {
-        String telefono = jTextField1.getText(); 
-        String[] tutorInfo = tutor.ConsultarTutor(telefono);
-        // Limpiar la tabla antes de mostrar los resultados
-        dtm.setRowCount(0);
-        if (tutorInfo[0] != null) {
-            // Agregar los datos obtenidos a la tabla
-            dtm.addRow(new Object[]{tutorInfo[0], tutorInfo[1], tutorInfo[2]});
-        } else {
-            System.out.println("No se encontró tutor con el número especificado.");
-        }
-    }
-    
-    
-        public void MostrarTabla()
+            public void MostrarTabla()
     {
+      
         MostrarTabla mostrartabla = new MostrarTabla();
         
         DefaultTableModel modelo = mostrartabla.mostrarTutores();
@@ -97,6 +43,128 @@ public class Tutores extends javax.swing.JFrame {
         tblTutor.setModel(modelo);
         
     }
+    
+    
+     void Agregar() {
+         
+        String  tel = txtTelefono.getText();
+       String nombre = txtNomTutor.getText();
+        String apellido = txtApeTutor.getText();
+        String num = String.valueOf(tel);
+        // Agregar a la base de datos
+        tutor.RegistrarTutor(tel, nombre, apellido);
+        // Agregar a la tabla
+               MostrarTabla();
+        dtm.addRow(new Object[]{tel, nombre, apellido});
+    }
+    
+void Eliminar() {
+      DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
+    int fila = tblTutor.getSelectedRow();
+    if (fila >= 0) { 
+        String num_telefono = (String) dtm.getValueAt(fila, 0);
+        // Eliminar de la base de datos
+        tutor.EliminarTutor(num_telefono);
+        // Eliminar de la tabla
+        dtm.removeRow(fila);
+    } else {
+        JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
+        System.out.println("No se seleccionó ninguna fila.");
+    }
+}
+
+    
+void Actualizar() {
+    // Obtener el modelo de la tabla
+    DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
+    // Obtener la fila seleccionada
+    int selectedRow = tblTutor.getSelectedRow();
+    
+    // Obtener los valores de los campos de texto
+    String telefono = txtTelefono.getText();
+    String nombre = txtNomTutor.getText();
+    String apellido = txtApeTutor.getText();
+
+    // Verificar si una fila está realmente seleccionada
+    if (selectedRow >= 0) {
+        // Actualizar en la base de datos
+        tutor.ModificarTutor(telefono, nombre, apellido);
+        
+        // Actualizar los valores en la tabla
+        dtm.setValueAt(telefono, selectedRow, 0);
+        dtm.setValueAt(nombre, selectedRow, 1);
+        dtm.setValueAt(apellido, selectedRow, 2);
+        
+        System.out.println("Datos del tutor actualizados correctamente.");
+    } else {
+        // Si no hay ninguna fila seleccionada, buscar el teléfono en la tabla
+        boolean found = false;
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            if (dtm.getValueAt(i, 0).toString().equals(telefono)) {
+                // Actualizar en la base de datos
+                tutor.ModificarTutor(telefono, nombre, apellido);
+                
+                // Actualizar los valores en la tabla
+                dtm.setValueAt(telefono, i, 0);
+                dtm.setValueAt(nombre, i, 1);
+                dtm.setValueAt(apellido, i, 2);
+                
+                System.out.println("Datos del tutor actualizados correctamente.");
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Error: No se encontró un tutor con el número de teléfono especificado.");
+        }
+    }
+}
+
+void Consultar() {
+    String telefono = jTextField1.getText();  // Obtener el número de teléfono desde el campo de texto
+    // Limpiar la tabla antes de mostrar los resultados
+    dtm.setRowCount(0);
+
+    // Consultar tutor según el número de teléfono proporcionado
+    String[] tutorInfo = tutor.ConsultarTutor(telefono);
+
+    if (tutorInfo[0] != null) {
+        // Agregar los datos obtenidos a la tabla
+        dtm.addRow(tutorInfo);
+        System.out.println("consulta:" + tutorInfo);
+        MostrarTabla();
+    } else {
+        System.out.println("No se encontró ningún tutor con el número de teléfono especificado.");
+    }
+}
+
+
+
+    
+    
+private void initialize() {
+
+        // Inicializar el modelo de la tabla y la tabla
+        dtm = new DefaultTableModel(new Object[]{"num_telefono", "nombre", "apellido"}, 0);
+        // Agregar el ListSelectionListener a la tabla
+        tblTutor.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                       
+                    int selectedRow = tblTutor.getSelectedRow();
+                    DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
+                    if (selectedRow >= 0) {
+                        txtTelefono.setText(dtm.getValueAt(selectedRow, 0).toString());
+                        txtNomTutor.setText(dtm.getValueAt(selectedRow, 1).toString());
+                        txtApeTutor.setText(dtm.getValueAt(selectedRow, 2).toString());
+                      
+                    }
+                    
+                }
+            }
+        });
+        
+}
     
     
     
@@ -149,6 +217,11 @@ public class Tutores extends javax.swing.JFrame {
         });
 
         jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
 
         jLabel1.setText("Telefono");
 
@@ -267,20 +340,28 @@ public class Tutores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
-        Agregar();
+       
     }//GEN-LAST:event_BotonModificarActionPerformed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
         Consultar();
+        MostrarTabla();
     }//GEN-LAST:event_jButton2MousePressed
 
     private void BotonAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonAgregarMousePressed
        Agregar();
+       MostrarTabla();
     }//GEN-LAST:event_BotonAgregarMousePressed
 
     private void BotonModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonModificarMousePressed
         Actualizar();
+        MostrarTabla();
     }//GEN-LAST:event_BotonModificarMousePressed
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+       Eliminar();
+       MostrarTabla();
+    }//GEN-LAST:event_jButton1MousePressed
 
     /**
      * @param args the command line arguments

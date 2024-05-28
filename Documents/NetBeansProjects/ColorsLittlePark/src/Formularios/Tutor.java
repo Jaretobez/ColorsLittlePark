@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clases;
+package Formularios;
 
+import Clases.Atributos;
+import Clases.ConexionBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 
 public class Tutor {
@@ -25,9 +26,7 @@ public class Tutor {
             if (VerificaNum(num)) {
                 System.out.println("Error: El Numero ya existe en la base de datos.");
                 return;
-            }
-            
-         
+            }       
            
         } catch (RuntimeException e) {
             System.out.println("Error: " + e.getMessage());
@@ -39,7 +38,6 @@ public class Tutor {
             pps.setString(1, num);
             pps.setString(2, nombre);
             pps.setString(3, apellido);
- 
             pps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());

@@ -10,6 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static java.awt.PageAttributes.MediaType.D;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,12 +34,14 @@ public class MostrarTabla {
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
         String sql = "SELECT * FROM tutores";
-               
+            
+         Connection connection = null;
         PreparedStatement pst = null;       
         ResultSet rs = null;
         
         try
         {            
+            connection = con.conector();
             pst = con.prepareStatement(sql);                                  
             rs = pst.executeQuery();
             
@@ -52,7 +61,7 @@ public class MostrarTabla {
         {         
             JOptionPane.showMessageDialog(null,"Error al conectar");        
         }
-        finally
+  /*      finally
         {
             try
             {
@@ -66,7 +75,7 @@ public class MostrarTabla {
             {
                 JOptionPane.showMessageDialog(null,e);
             }
-        }
+        }*/
          return modelo;
     }
     
