@@ -63,7 +63,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/7077274c-7c15-4a8c-9346-ce4a9e53cda4.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, 170));
+        Menu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 200, 200));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/salir (2).png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,10 +78,8 @@ public class Home extends javax.swing.JFrame {
         jLabel2.setText("LOG OUT");
         Menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 520, -1, -1));
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/idea (1).png"))); // NOI18N
-        Menu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/decoracion.png"))); // NOI18N
+        Menu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.setForeground(new java.awt.Color(204, 204, 204));
@@ -90,6 +88,7 @@ public class Home extends javax.swing.JFrame {
 
         jButton2.setForeground(new java.awt.Color(255, 51, 51));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/WhatsApp Image 2024-05-27 at 3.30.37 PM (1).jpeg"))); // NOI18N
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -109,8 +108,6 @@ public class Home extends javax.swing.JFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/busquda (1).png"))); // NOI18N
         jButton3.setBorder(null);
-        jButton3.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButton3.setMinimumSize(new java.awt.Dimension(20, 20));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -124,17 +121,17 @@ public class Home extends javax.swing.JFrame {
         header.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/venats.jpg"))); // NOI18N
-        jButton4.setLabel("");
-        header.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 150, 90));
+        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        header.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 150, 90));
 
         jLabel4.setBackground(new java.awt.Color(255, 51, 51));
         jLabel4.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 51, 51));
         jLabel4.setText("VENTAS");
-        header.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, -1, -1));
+        header.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/activos (1).png"))); // NOI18N
-        jButton5.setText("jButton5");
+        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         header.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 150, 90));
 
         jLabel5.setBackground(new java.awt.Color(255, 51, 51));

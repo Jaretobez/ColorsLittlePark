@@ -37,27 +37,36 @@ public class Ventas extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 51, 51));
         jPanel1.setLayout(null);
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Buscar");
+        jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(230, 80, 72, 23);
+        jButton1.setBounds(260, 150, 100, 40);
 
-        jButton2.setText("Agregar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/aceptarnino.png"))); // NOI18N
+        jButton2.setBorder(null);
         jPanel1.add(jButton2);
-        jButton2.setBounds(130, 120, 75, 23);
+        jButton2.setBounds(360, 110, 50, 40);
 
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -72,42 +81,68 @@ public class Ventas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 210, 460, 160);
+        jScrollPane1.setBounds(280, 220, 460, 160);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Id Infante");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(30, 80, 70, 20);
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(130, 80, 80, 20);
+        jLabel1.setBounds(260, 90, 70, 20);
 
-        jLabel2.setFont(new java.awt.Font("Arial Narrow", 1, 36)); // NOI18N
+        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(260, 120, 100, 20);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("VENTA");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 0, 230, 80);
+        jLabel2.setBounds(440, 0, 230, 80);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(550, 80, 140, 22);
+        jComboBox1.setBounds(630, 120, 140, 22);
 
-        jLabel3.setText("Metodo de pago");
+        jLabel3.setFont(new java.awt.Font("Segoe UI Historic", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Método de pago");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(440, 80, 90, 20);
+        jLabel3.setBounds(510, 120, 110, 20);
 
-        jButton3.setText("GENERAR VENTA");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/accetp.png"))); // NOI18N
+        jButton3.setBorder(null);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(50, 430, 140, 60);
+        jButton3.setBounds(650, 430, 90, 60);
 
-        jButton4.setText("REGRESAR");
-        jPanel1.add(jButton4);
-        jButton4.setBounds(695, 10, 120, 40);
+        jPanel2.setBackground(new java.awt.Color(255, 51, 51));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/Logo Tienda de moda Infantil Divertido Colores (1) (2).jpg"))); // NOI18N
+        jPanel2.add(jLabel4);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/decoracion.png"))); // NOI18N
+        jPanel2.add(jLabel5);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(0, 0, 210, 550);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incon/regresar.png"))); // NOI18N
+        jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5);
+        jButton5.setBounds(280, 430, 90, 60);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 830, 530);
+        jPanel1.setBounds(0, 0, 830, 540);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -119,6 +154,10 @@ public class Ventas extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,12 +198,15 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
