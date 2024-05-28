@@ -26,14 +26,13 @@ public class Tutor {
                 System.out.println("Error: El Numero ya existe en la base de datos.");
                 return;
             }
-         //   a.setNumTutor(num);
+            
+         
+           
         } catch (RuntimeException e) {
             System.out.println("Error: " + e.getMessage());
             error = true;
         }
-
-        //       nombre = a.getNombreInfante();
-        //      apellido = a.getApellidosInfante();
         try {
             String query = "INSERT INTO tutores(num_telefono, nombre, apellido) VALUES(?, ?, ?)";
             PreparedStatement pps = con.prepareStatement(query);
@@ -96,33 +95,23 @@ public class Tutor {
         }
     }
 
-    public void ConsultarTutor(String num){
-            try {
-            // Consultar los datos del infante
-            String query;
-            query = "SELECT * FROM tutores WHERE num_telefono = ? ";
+  public String[] ConsultarTutor(String num) {
+        String[] tutorInfo = new String[3];
+        try {
+            String query = "SELECT * FROM tutores WHERE num_telefono = ?";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setString(1, num);
-
             ResultSet rs = pps.executeQuery();
-
             if (rs.next()) {
-//                String num = rs.getString("num_telefono");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-
-                // Mostrar los datos del infante en la consola
-                System.out.println("Numero: " + num);
-                System.out.println("Nombre: " + nombre);
-                System.out.println("Apellido: " + apellido);
-
-            } else {
-                System.out.println("No se encontró tutor con el numero especificado.");
+                tutorInfo[0] = rs.getString("num_telefono");
+                tutorInfo[1] = rs.getString("nombre");
+                tutorInfo[2] = rs.getString("apellido");
             }
         } catch (SQLException e) {
             System.out.println("Error al consultar los datos en la base de datos: " + e.getMessage());
         }
-    }  
+        return tutorInfo;
+    }
     
         public boolean VerificaNum(String num) {
         try {
@@ -138,37 +127,6 @@ public class Tutor {
         }
     }
     
-    
     private final Atributos a;
-
-    // Método main para probar LAS FUNCIONES
-    public static void main(String[] args) {
-        Tutor tutor = new Tutor();
-        //CONECTAR A BASE DE DATOS
-        ConexionBD conexionBD = new ConexionBD();
-        conexionBD.conector();
-        
- /*       //INSERTAR
-        // Aquí defines los valores que quieres ingresar
-    String num = "9383333333";
-    String nombre = "jose";
-    String apellido = "contreras";
-  
-    tutor.RegistrarTutor(num, nombre, apellido)
-    
-    
-    //MODIFICAR
-         String num = "9383333333";
-        String newnom = "chavo";
-        String newape = "delocho";
-        tutor.ModificarTutor(num, newnom, newape);;*/
-      
-
-//   tutor.EliminarTutor(num);
-
- //    String num = "9381111111";
-     tutor.ConsultarTutor("9381111111");
-
-    }
-    
+   
 }

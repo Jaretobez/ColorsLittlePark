@@ -4,10 +4,6 @@
  */
 package Clases;
 
-/**
- *
- * @author Jared
- */
 public class Atributos {
     
     //INFANTES
@@ -15,8 +11,7 @@ public class Atributos {
     private int idinf, edad;
     
     //TUTORES
-    private String nomtutor, apetutor;
-    private int numtutor;
+    private String nomtutor, apetutor, numtutor;
     
     //VENTAS
     private String tipo_pago, datetime_venta, tiempo;
@@ -41,7 +36,7 @@ public class Atributos {
     
         public Atributos(){
     nominf=null; apeinf=null; idinf=0; edad=0; fk_numtutor_inf=null;
-    numtutor=0; nomtutor=null; apetutor=null;
+    numtutor=null; nomtutor=null; apetutor=null;
     folio=0; fk_idinf_sell=0; monto=0; tipo_pago=null; datetime_venta=null; tiempo=null;
     idactivo=0; fk_idinf_act=0; fk_numtutor_act=0;
     idElim=0; datetime_elim=null;
@@ -49,6 +44,29 @@ public class Atributos {
     idturno=0; usuario=null; contraseña=null;
     
     }
+        
+    //Datos del TUTOR/////////////////////////////////////////////////////////////////////////
+    public void setNumTutor(String x){   
+     numtutor = x;
+   }
+   public String getNumTutor(){
+      return numtutor;
+   } 
+   
+   public void setNomTutor(String x){   
+    nomtutor = x;
+   }
+   public String getNomTutor(){
+      return nomtutor;
+   } 
+   
+       public void setApeTutor(String x){   
+     apetutor = x;
+   }
+   public String getApeTutor(){
+      return apetutor;
+   } 
+        
     
     // Datos del INFANTE /////////////////////////////////////////////////////////////////////
     public void setIdInfante(int x){   
@@ -93,6 +111,15 @@ public class Atributos {
    folio = x;
    }
    public int getFolio(){
+      return folio;
+   }
+   
+   //ACTIVOS
+   
+        public void setIdActivo(int x){   
+   folio = x;
+   }
+   public int getIdActivo(){
       return folio;
    }
       

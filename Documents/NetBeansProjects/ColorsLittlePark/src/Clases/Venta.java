@@ -81,7 +81,7 @@ hora_salida*/
     public static int generarFolio() {
         Random random = new Random();
         // Generar un número aleatorio entre 1000 y 9999
-        int id = 100000 + random.nextInt(900000);
+        int id = 1000000 + random.nextInt(9000000);
         return id;
     }
 
@@ -150,13 +150,13 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
    //     infante.ConsultarInfante(9056);
 
 //INSERTAR
-     // Aquí defines los valores que quieres ingresar
+  /*   // Aquí defines los valores que quieres ingresar
     String tipo_pago = "tarjeta";
     int fk_activo = 15298;
     Time hora_entrada = Time.valueOf("08:00:00");
     Time hora_salida = Time.valueOf("09:06:00"); 
     venta.AgregarVenta(tipo_pago, fk_activo, hora_entrada, hora_salida);
-  /*  
+    
     int minutos_totales = calcularTiempoTotal(hora_entrada, hora_salida);
     System.out.println("tiempo total en minutos:" + minutos_totales );
     double monto = calcularMontoTotal(minutos_totales);
