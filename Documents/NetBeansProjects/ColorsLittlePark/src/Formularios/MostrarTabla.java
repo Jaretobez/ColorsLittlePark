@@ -25,6 +25,9 @@ import javax.swing.table.DefaultTableModel;
 public class MostrarTabla {
     
     ConexionBD con = new ConexionBD();
+            Connection connection = null;
+        PreparedStatement pst = null;       
+        ResultSet rs = null;
     
  public DefaultTableModel mostrarTutores()
     {
@@ -34,10 +37,7 @@ public class MostrarTabla {
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
         String sql = "SELECT * FROM tutores";
-            
-         Connection connection = null;
-        PreparedStatement pst = null;       
-        ResultSet rs = null;
+           
         
         try
         {            
@@ -54,8 +54,7 @@ public class MostrarTabla {
                 registros[2] = rs.getString("apellido");
                 
                 modelo.addRow(registros);           
-            }      
-          
+            }                
         }
         catch(SQLException e)
         {         
@@ -78,5 +77,37 @@ public class MostrarTabla {
         }*/
          return modelo;
     }
-    
+ 
+ 
+  public DefaultTableModel mostrarInfantes()
+    {
+        String []  nomColumnas = {"ID_infante","nombre","apellido", "edad", "tutor"};
+        String [] registrosinf = new String[5];
+        
+        DefaultTableModel modeloinf = new DefaultTableModel(null,nomColumnas);
+        
+        String sqlinf = "SELECT * FROM infantes";
+        
+        try
+        {            
+            connection = con.conector();
+            pst = con.prepareStatement(sqlinf);                                  
+            rs = pst.executeQuery();
+           
+            while(rs.next())
+            {
+                registrosinf[0] = rs.getString("ID_infante");               
+                registrosinf[1] = rs.getString("nombre");       
+                registrosinf[2] = rs.getString("apellido");
+                registrosinf[3] = rs.getString("edad");
+                registrosinf[4] = rs.getString("tutor");             
+                modeloinf.addRow(registrosinf);           
+            }               
+        }
+        catch(SQLException e)
+        {         
+            JOptionPane.showMessageDialog(null,"Error al conectar");        
+        }
+         return modeloinf;
+    }  
 }
