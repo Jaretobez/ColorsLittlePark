@@ -64,30 +64,36 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        fSButtonMD1.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD1.setText("Clientes");
         fSButtonMD1.setColorNormal(new java.awt.Color(255, 51, 51));
         fSButtonMD1.setColorTextHover(new java.awt.Color(255, 51, 51));
         fSButtonMD1.setContentAreaFilled(true);
+        fSButtonMD1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD1MousePressed(evt);
+            }
+        });
         fSButtonMD1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fSButtonMD1ActionPerformed(evt);
             }
         });
 
-        fSButtonMD2.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD2.setText("Infantes");
         fSButtonMD2.setColorNormal(new java.awt.Color(255, 51, 51));
         fSButtonMD2.setColorTextHover(new java.awt.Color(255, 51, 51));
         fSButtonMD2.setContentAreaFilled(true);
+        fSButtonMD2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD2MousePressed(evt);
+            }
+        });
 
-        fSButtonMD3.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD3.setText("Corte de Caja");
         fSButtonMD3.setColorNormal(new java.awt.Color(255, 51, 51));
         fSButtonMD3.setColorTextHover(new java.awt.Color(255, 51, 51));
         fSButtonMD3.setContentAreaFilled(true);
 
-        fSButtonMD4.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD4.setText("Ventas");
         fSButtonMD4.setColorNormal(new java.awt.Color(255, 51, 51));
         fSButtonMD4.setColorTextHover(new java.awt.Color(255, 51, 51));
@@ -130,7 +136,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(fSButtonMD4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(fSButtonMD3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -141,7 +147,7 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 647, Short.MAX_VALUE))
+                .addGap(0, 666, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +167,7 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 875, 590);
+        setBounds(0, 0, 894, 609);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -177,6 +183,16 @@ public class Home extends javax.swing.JFrame {
      this.dispose();
      iniciosesion.setVisible(true);
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
+     Tutores tutores = new Tutores();
+     tutores.setVisible(true);
+    }//GEN-LAST:event_fSButtonMD1MousePressed
+
+    private void fSButtonMD2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD2MousePressed
+         Infantes infantes = new Infantes();
+     infantes.setVisible(true);
+    }//GEN-LAST:event_fSButtonMD2MousePressed
 
     /**
      * @param args the command line arguments

@@ -201,15 +201,16 @@ void Actualizar() {
         jLabel8 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         fSButtonMD5 = new LIB.FSButtonMD();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setText("Control Infantes");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 18, 192, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 192, -1));
 
         jLabel1.setText("Nombre");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 63, 26));
@@ -221,7 +222,7 @@ void Actualizar() {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 49, 24));
 
         jLabel5.setText("Telefono del tutor");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 120, 27));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 120, 20));
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,7 +231,7 @@ void Actualizar() {
         });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 200, -1));
         jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 200, -1));
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 200, -1));
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 200, -1));
 
         tblTutores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,11 +246,11 @@ void Actualizar() {
         ));
         jScrollPane1.setViewportView(tblTutores);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 400, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 400, 230));
 
         jButton1.setText("jButton1");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 200, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 200, -1));
 
         tblInfantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -272,22 +273,22 @@ void Actualizar() {
         });
         jScrollPane2.setViewportView(tblInfantes);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 400, 230));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 400, 230));
 
         jButton2.setText("jButton2");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, -1));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 290, 220, -1));
-        jPanel1.add(SpinnerEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, -1, -1));
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 220, -1));
+        jPanel1.add(SpinnerEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 80, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Infantes");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, 130, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 270, 130, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Tutores");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 130, 30));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 130, 30));
 
         fSButtonMD1.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD1.setText("Eliminar");
@@ -299,7 +300,7 @@ void Actualizar() {
                 fSButtonMD1MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 129, -1));
+        jPanel1.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 129, -1));
 
         fSButtonMD2.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD2.setText("Agregar");
@@ -311,7 +312,7 @@ void Actualizar() {
                 fSButtonMD2MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 129, -1));
+        jPanel1.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 129, -1));
 
         fSButtonMD3.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD3.setText("Limpiar Campos");
@@ -323,7 +324,7 @@ void Actualizar() {
                 fSButtonMD3MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 129, -1));
+        jPanel1.add(fSButtonMD3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 129, -1));
 
         fSButtonMD4.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD4.setText("Modificar");
@@ -335,21 +336,22 @@ void Actualizar() {
                 fSButtonMD4MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 129, -1));
+        jPanel1.add(fSButtonMD4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 129, -1));
 
         jLabel8.setText("ID:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 60, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 60, 20));
 
         txtID.setEditable(false);
         txtID.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 160, -1));
+        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 200, -1));
 
         fSButtonMD5.setBackground(new java.awt.Color(255, 0, 0));
         fSButtonMD5.setText("Activar");
         fSButtonMD5.setColorNormal(new java.awt.Color(255, 0, 0));
         fSButtonMD5.setColorTextHover(new java.awt.Color(255, 0, 0));
         fSButtonMD5.setContentAreaFilled(true);
-        jPanel1.add(fSButtonMD5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 129, -1));
+        jPanel1.add(fSButtonMD5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, 129, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 860, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -359,10 +361,10 @@ void Actualizar() {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 875, 611);
+        setBounds(0, 0, 875, 621);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -420,6 +422,7 @@ void Actualizar() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tblInfantes;
