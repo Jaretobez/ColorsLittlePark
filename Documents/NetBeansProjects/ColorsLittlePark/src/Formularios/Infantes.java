@@ -14,161 +14,157 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Infantes extends javax.swing.JFrame {
 
-  ConexionBD con = new ConexionBD();
- DefaultTableModel dtm=new DefaultTableModel();
- Infante infante = new Infante();
+    ConexionBD con = new ConexionBD();
+    DefaultTableModel dtm = new DefaultTableModel();
+    Infante infante = new Infante();
+
     /**
      * Creates new form Infantes
      */
- // Inicialización de las tablas en el constructor
-public Infantes() {
-    initComponents();
-    MostrarTabla();
-    this.setLocationRelativeTo(null); 
-    initializeTables();
-}
+    // Inicialización de las tablas en el constructor
+    public Infantes() {
+        initComponents();
+        MostrarTabla();
+        this.setLocationRelativeTo(null);
+        initializeTables();
+    }
 
 // Mostrar los datos en las tablas
-public void MostrarTabla() {     
-    MostrarTabla mostrartabla = new MostrarTabla();      
-    DefaultTableModel modeloTutores = mostrartabla.mostrarTutores(); 
-    DefaultTableModel modeloInfantes = mostrartabla.mostrarInfantes();
-    tblTutores.setModel(modeloTutores);    
-    tblInfantes.setModel(modeloInfantes);  
-}
+    public void MostrarTabla() {
+        MostrarTabla mostrartabla = new MostrarTabla();
+        DefaultTableModel modeloTutores = mostrartabla.mostrarTutores();
+        DefaultTableModel modeloInfantes = mostrartabla.mostrarInfantes();
+        tblTutores.setModel(modeloTutores);
+        tblInfantes.setModel(modeloInfantes);
+    }
 
 // Configurar los listeners para las tablas
-private void initializeTables() {
-    addTableSelectionListener(tblTutores);
-    addTableSelectionListener(tblInfantes);
-}
+    private void initializeTables() {
+        addTableSelectionListener(tblTutores);
+        addTableSelectionListener(tblInfantes);
+    }
 
 // Función general para añadir el listener a una tabla
-private void addTableSelectionListener(JTable table) {
-    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-        public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {                      
-                int selectedRow = table.getSelectedRow();
-                DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-                if (selectedRow >= 0) {
-                    if (table == tblTutores) {
-                        txtTelefono.setText(dtm.getValueAt(selectedRow, 0).toString());
-                        // No actualizamos los campos de nombre y apellido
-                    } else if (table == tblInfantes) {
-                        txtID.setText(dtm.getValueAt(selectedRow, 0).toString());
-                        txtNombre.setText(dtm.getValueAt(selectedRow, 1).toString());
-                        txtApellido.setText(dtm.getValueAt(selectedRow, 2).toString());
-                        try {
-                            int edad = Integer.parseInt(dtm.getValueAt(selectedRow, 3).toString());
-                            SpinnerEdad.setValue(edad);
-                        } catch (NumberFormatException ex) {
-                            System.out.println("Error al convertir la edad: " + ex.getMessage());
+    private void addTableSelectionListener(JTable table) {
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = table.getSelectedRow();
+                    DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+                    if (selectedRow >= 0) {
+                        if (table == tblTutores) {
+                            txtTelefono.setText(dtm.getValueAt(selectedRow, 0).toString());
+                            // No actualizamos los campos de nombre y apellido
+                        } else if (table == tblInfantes) {
+                            txtID.setText(dtm.getValueAt(selectedRow, 0).toString());
+                            txtNombre.setText(dtm.getValueAt(selectedRow, 1).toString());
+                            txtApellido.setText(dtm.getValueAt(selectedRow, 2).toString());
+                            try {
+                                int edad = Integer.parseInt(dtm.getValueAt(selectedRow, 3).toString());
+                                SpinnerEdad.setValue(edad);
+                            } catch (NumberFormatException ex) {
+                                System.out.println("Error al convertir la edad: " + ex.getMessage());
+                            }
+                            txtTelefono.setText(dtm.getValueAt(selectedRow, 4).toString());
                         }
-                        txtTelefono.setText(dtm.getValueAt(selectedRow, 4).toString());
-                    }                    
+                    }
                 }
             }
-        }
-    });
-}
-
-void limpiarCampos() {
-    txtID.setText("");
-    txtNombre.setText("");
-    txtApellido.setText("");
-    SpinnerNumberModel model = (SpinnerNumberModel) SpinnerEdad.getModel();
-    model.setValue(0); // Cambia 0 por el valor predeterminado que desees para el spinner
-    txtTelefono.setText("");
-}
-
-
-void Agregar() {
-    String nombre = txtNombre.getText();
-    String apellido = txtApellido.getText();
-    int edad = (int) SpinnerEdad.getValue(); // Parsear el valor del Spinner como un entero
-    String telefono = txtTelefono.getText();    
-        
-    // Llamar al método RegistrarInfante() en la instancia de Infante
-    infante.RegistrarInfante(nombre, apellido, edad, telefono);  
-    // Agregar a la tabla    
-    dtm.addRow(new Object[]{nombre, apellido, edad, telefono});
-    MostrarTabla();
-}
-
-
-void Eliminar() {
-      DefaultTableModel dtm = (DefaultTableModel) tblInfantes.getModel();
-    int fila = tblInfantes.getSelectedRow();
-    if (fila >= 0) { 
-        String idInfante = txtID.getText();
-        int id = Integer.parseInt(idInfante);
-        // Eliminar de la base de datos
-        infante.EliminarInfante(id);
-        // Eliminar de la tabla
-        dtm.removeRow(fila);
-    } else {
-        JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
-        System.out.println("No se seleccionó ninguna fila.");
+        });
     }
-}
 
-void Actualizar() {
-    // Obtener el modelo de la tabla
-    DefaultTableModel dtm = (DefaultTableModel) tblInfantes.getModel();
-    // Obtener la fila seleccionada
-    int selectedRow = tblInfantes.getSelectedRow();
-    
-    // Obtener los valores de los campos de texto
-    String id = txtID.getText();
-     int idInfante = Integer.parseInt(id);
-    String nombre = txtNombre.getText();
-    String apellido = txtApellido.getText();
-    int edad = (int) SpinnerEdad.getValue();
-    String telefono = txtTelefono.getText(); 
+    void limpiarCampos() {
+        txtID.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        SpinnerNumberModel model = (SpinnerNumberModel) SpinnerEdad.getModel();
+        model.setValue(0); // Cambia 0 por el valor predeterminado que desees para el spinner
+        txtTelefono.setText("");
+    }
 
-    // Verificar si una fila está realmente seleccionada
-    if (selectedRow >= 0) {
-        // Actualizar en la base de datos
-        infante.ModificarInfante(idInfante, nombre, apellido, edad, telefono);
-        
-        // Actualizar los valores en la tabla
-        dtm.setValueAt(idInfante, selectedRow, 0);
-        dtm.setValueAt(nombre, selectedRow, 1);
-        dtm.setValueAt(apellido, selectedRow, 2);
-        dtm.setValueAt(edad, selectedRow, 3);
-        dtm.setValueAt(telefono, selectedRow, 4);
-        
-        
-        System.out.println("Datos del tutor actualizados correctamente.");
-    } else {
-        // Si no hay ninguna fila seleccionada, buscar el teléfono en la tabla
-        boolean found = false;
-        for (int i = 0; i < dtm.getRowCount(); i++) {
-            if (dtm.getValueAt(i, 0).toString().equals(telefono)) {
-                // Actualizar en la base de datos
-                infante.ModificarInfante(idInfante, nombre, apellido, edad, telefono);
-                
-                // Actualizar los valores en la tabla
-        dtm.setValueAt(idInfante, selectedRow, 0);
-        dtm.setValueAt(nombre, selectedRow, 1);
-        dtm.setValueAt(apellido, selectedRow, 2);
-        dtm.setValueAt(edad, selectedRow, 3);
-        dtm.setValueAt(telefono, selectedRow, 4);
-                
-                System.out.println("Datos del tutor actualizados correctamente.");
-                found = true;
-                break;
+    void Agregar() {
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        int edad = (int) SpinnerEdad.getValue(); // Parsear el valor del Spinner como un entero
+        String telefono = txtTelefono.getText();
+
+        // Llamar al método RegistrarInfante() en la instancia de Infante
+        infante.RegistrarInfante(nombre, apellido, edad, telefono);
+        // Agregar a la tabla    
+        dtm.addRow(new Object[]{nombre, apellido, edad, telefono});
+        MostrarTabla();
+    }
+
+    void Eliminar() {
+        DefaultTableModel dtm = (DefaultTableModel) tblInfantes.getModel();
+        int fila = tblInfantes.getSelectedRow();
+        if (fila >= 0) {
+            String idInfante = txtID.getText();
+            int id = Integer.parseInt(idInfante);
+            // Eliminar de la base de datos
+            infante.EliminarInfante(id);
+            // Eliminar de la tabla
+            dtm.removeRow(fila);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
+            System.out.println("No se seleccionó ninguna fila.");
+        }
+    }
+
+    void Actualizar() {
+        // Obtener el modelo de la tabla
+        DefaultTableModel dtm = (DefaultTableModel) tblInfantes.getModel();
+        // Obtener la fila seleccionada
+        int selectedRow = tblInfantes.getSelectedRow();
+
+        // Obtener los valores de los campos de texto
+        String id = txtID.getText();
+        int idInfante = Integer.parseInt(id);
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        int edad = (int) SpinnerEdad.getValue();
+        String telefono = txtTelefono.getText();
+
+        // Verificar si una fila está realmente seleccionada
+        if (selectedRow >= 0) {
+            // Actualizar en la base de datos
+            infante.ModificarInfante(idInfante, nombre, apellido, edad);
+
+            // Actualizar los valores en la tabla
+            dtm.setValueAt(idInfante, selectedRow, 0);
+            dtm.setValueAt(nombre, selectedRow, 1);
+            dtm.setValueAt(apellido, selectedRow, 2);
+            dtm.setValueAt(edad, selectedRow, 3);
+     //       dtm.setValueAt(telefono, selectedRow, 4);
+
+            System.out.println("Datos del tutor actualizados correctamente.");
+        } else {
+            // Si no hay ninguna fila seleccionada, buscar el teléfono en la tabla
+            boolean found = false;
+            for (int i = 0; i < dtm.getRowCount(); i++) {
+                if (dtm.getValueAt(i, 0).toString().equals(telefono)) {
+                    // Actualizar en la base de datos
+                    infante.ModificarInfante(idInfante, nombre, apellido, edad);
+
+                    // Actualizar los valores en la tabla
+                    dtm.setValueAt(idInfante, selectedRow, 0);
+                    dtm.setValueAt(nombre, selectedRow, 1);
+                    dtm.setValueAt(apellido, selectedRow, 2);
+                    dtm.setValueAt(edad, selectedRow, 3);
+                 //   dtm.setValueAt(telefono, selectedRow, 4);
+
+                    System.out.println("Datos del tutor actualizados correctamente.");
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Error: No se encontró un tutor con el número de teléfono especificado.");
             }
         }
-        if (!found) {
-            System.out.println("Error: No se encontró un tutor con el número de teléfono especificado.");
-        }
     }
-}
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -376,11 +372,11 @@ void Actualizar() {
     }//GEN-LAST:event_fSButtonMD3MousePressed
 
     private void fSButtonMD2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD2MousePressed
-       Agregar();
+        Agregar();
     }//GEN-LAST:event_fSButtonMD2MousePressed
 
     private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
-       Eliminar();
+        Eliminar();
     }//GEN-LAST:event_fSButtonMD1MousePressed
 
     private void fSButtonMD4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD4MousePressed
@@ -392,7 +388,7 @@ void Actualizar() {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-  FlatLightLaf.setup();
+        FlatLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

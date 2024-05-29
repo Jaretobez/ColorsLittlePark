@@ -63,7 +63,7 @@ try {
         }
     }
 
-    public void ModificarInfante(int id, String newnom, String newape, int newedad, String newnum) {
+    public void ModificarInfante(int id, String newnom, String newape, int newedad) {
         try {
             // Verificar si el infante con el ID proporcionado existe
             if (!VerificaId(id)) {
@@ -71,13 +71,12 @@ try {
                 return;
             }
             // Actualizar los datos del infante
-            String query = "UPDATE infantes SET nombre = ?, apellido = ?, edad = ?, tutor = ? WHERE ID_infante = ?";
+            String query = "UPDATE infantes SET nombre = ?, apellido = ?, edad = ? WHERE ID_infante = ?";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setString(1, newnom);
             pps.setString(2, newape);
             pps.setInt(3, newedad);
-            pps.setString(4, newnum);
-            pps.setInt(5, id);
+            pps.setInt(4, id);
 
             int rowsAffected = pps.executeUpdate();
 

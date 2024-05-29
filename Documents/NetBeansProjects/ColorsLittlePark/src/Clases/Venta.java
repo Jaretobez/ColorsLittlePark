@@ -7,7 +7,6 @@ package Clases;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Random;
 import java.sql.*;
 import java.util.concurrent.TimeUnit;

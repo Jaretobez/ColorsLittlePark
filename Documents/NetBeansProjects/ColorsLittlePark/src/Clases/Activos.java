@@ -4,27 +4,28 @@
  */
 package Clases;
 
-import static Clases.Venta.calcularMontoTotal;
-import static Clases.Venta.calcularTiempoTotal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Random;
 
-
 public class Activos {
-    
-        ConexionBD con = new ConexionBD();
+
+    ConexionBD con = new ConexionBD();
 
     public Activos() {
         a = new Atributos();
     }
-    
-        public void Activar(int id_infante, String num_tutor) {
+
+    public void Activar(int id_infante, String num_tutor) {
+        if (VerificaInfanteEnActivos(id_infante)) {
+            System.out.println("El infante con id " + id_infante + " ya está activo.");
+            return; // Salir del método para evitar duplicados
+        }
+
         int id = 0;
         boolean error = false;
+
         try {
             boolean idverifica;
             do {
@@ -42,28 +43,28 @@ public class Activos {
             error = true;
         }
 
-        try {
-            String query = "INSERT INTO activos(idactivo, infante, fk_num_telefono_act) VALUES(?, ?, ?)";
-            PreparedStatement pps = con.prepareStatement(query);
-            pps.setInt(1, id);
-            pps.setInt(2, id_infante);
-            pps.setString(3, num_tutor);
-            pps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
-        }
         if (!error) {
-            System.out.println("Datos guardados correctamente.");
+            try {
+                String query = "INSERT INTO activos(idactivo, infante, fk_num_telefono_act) VALUES(?, ?, ?)";
+                PreparedStatement pps = con.prepareStatement(query);
+                pps.setInt(1, id);
+                pps.setInt(2, id_infante);
+                pps.setString(3, num_tutor);
+                pps.executeUpdate();
+                System.out.println("Datos guardados correctamente.");
+            } catch (SQLException e) {
+                System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
+            }
         }
+    }
 
-    } 
-            public static int generarIdActivo() {
+    public static int generarIdActivo() {
         Random random = new Random();
         int id = 100 + random.nextInt(900);
         return id;
     }
-               
-                public boolean VerificaIdActivo(int id) {
+
+    public boolean VerificaIdActivo(int id) {
         try {
             String query = "SELECT * FROM activos WHERE idactivo = ?";
             PreparedStatement pps = con.prepareStatement(query);
@@ -74,14 +75,33 @@ public class Activos {
             return false;  // Manejar la excepción de alguna manera adecuada para tu aplicación
         }
     }
-        
-       private final Atributos a;
-    
-        public static void main(String[] args) {
+
+    public boolean VerificaInfanteEnActivos(int id_infante) {
+        boolean existe = false;
+        String query = "SELECT COUNT(*) FROM activos WHERE infante = ?";
+
+        try (PreparedStatement pps = con.prepareStatement(query)) {
+            pps.setInt(1, id_infante);
+            try (ResultSet rs = pps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    existe = (count > 0);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar si el infante ya está en activos: " + e.getMessage());
+        }
+
+        return existe;
+    }
+
+    private final Atributos a;
+
+    public static void main(String[] args) {
         Activos activos = new Activos();
         //CONECTAR A BASE DE DATOS
         ConexionBD conexionBD = new ConexionBD();
         conexionBD.conector();
-        }
-    
+    }
+
 }

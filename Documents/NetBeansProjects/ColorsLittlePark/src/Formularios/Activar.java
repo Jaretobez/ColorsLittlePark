@@ -4,6 +4,13 @@
  */
 package Formularios;
 
+import Clases.Activos;
+import Clases.ConexionBD;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,34 +19,85 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Activar extends javax.swing.JFrame {
      DefaultTableModel dtm=new DefaultTableModel();
+        ConexionBD con = new ConexionBD();
+        Activos activos = new Activos();
     /**
      * Creates new form Activar
      */
     public Activar() {
         initComponents();
-        String[] titulo=new String[]{"idActivo","infante","tutor"};
-        dtm.setColumnIdentifiers(titulo);
-        tblDatos.setModel(dtm);
-    }
-
-    void Agregar(){
-    dtm.addRow(new Object[]{
-   txtId.getText(),txtInfante.getText(),txtTutor.getText()
-    });
+        this.setLocationRelativeTo(null);
+         MostrarTabla();
+         initializeTables();
     }
     
-    void Eliminar(){
-        int fila=tblDatos.getSelectedRow();
-    dtm.removeRow(fila);
-    }
     
-    void Actualizar(){
-        int fila=tblDatos.getSelectedRow();
-    dtm.setValueAt(txtId.getText(), fila, 0);
-   dtm.setValueAt(txtInfante.getText(), fila, 1);
-    dtm.setValueAt(txtTutor.getText(), fila, 2);
+    public void MostrarTabla() {     
+    MostrarTabla mostrartabla = new MostrarTabla();      
+    DefaultTableModel modeloActivos = mostrartabla.MostrarActivos(); 
+    tblActivos.setModel(modeloActivos);  
+    DefaultTableModel modeloInfantes = mostrartabla.mostrarInfantes(); 
+    tblInfantes.setModel(modeloInfantes);  
+}
 
+    private void initializeTables() {
+        addTableSelectionListener(tblInfantes);
     }
+
+ private void addTableSelectionListener(JTable table) {
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = table.getSelectedRow();
+                    DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+                    if (selectedRow >= 0) {
+                        if (table == tblInfantes) {
+                            try {
+                                Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+                                Object numTelefonoObj = dtm.getValueAt(selectedRow, 4); // Assuming phone number is at column 4
+                                
+                                int idInfante = Integer.parseInt(idInfanteObj.toString());
+                                String numTelefono = numTelefonoObj.toString();
+
+                            } catch (NumberFormatException ex) {
+                                System.out.println("Error al convertir los datos de la tabla: " + ex.getMessage());
+                            } catch (Exception ex) {
+                                System.out.println("Error al obtener los datos de la tabla: " + ex.getMessage());
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+private void activarInfante() {
+    DefaultTableModel dtm = (DefaultTableModel) tblInfantes.getModel();
+    int selectedRow = tblInfantes.getSelectedRow();
+    if (selectedRow >= 0) {
+        try {
+            Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+            Object numTelefonoObj = dtm.getValueAt(selectedRow, 4); // Assuming phone number is at column 4
+            
+            int idInfante = Integer.parseInt(idInfanteObj.toString());
+            String numTelefono = numTelefonoObj.toString();
+            
+            if (activos.VerificaInfanteEnActivos(idInfante)) {
+                JOptionPane.showMessageDialog(null, "El infante con ID " + idInfante + " ya está activo.");
+            } else {
+                activos.Activar(idInfante, numTelefono);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos de la tabla: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Seleccione una fila para activar.");
+    }
+}
+
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,19 +109,20 @@ public class Activar extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDatos = new javax.swing.JTable();
-        txtId = new javax.swing.JTextField();
-        txtInfante = new javax.swing.JTextField();
-        txtTutor = new javax.swing.JTextField();
-        BotonAñadir = new javax.swing.JButton();
-        BotonEliminar = new javax.swing.JButton();
-        BotonActualizar = new javax.swing.JButton();
+        tblInfantes = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        fSButtonMD1 = new LIB.FSButtonMD();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblActivos = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
+        tblInfantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -74,77 +133,90 @@ public class Activar extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblDatos);
+        jScrollPane1.setViewportView(tblInfantes);
 
-        BotonAñadir.setText("Añadir");
-        BotonAñadir.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton1.setText("Buscar");
+
+        fSButtonMD1.setForeground(new java.awt.Color(255, 0, 0));
+        fSButtonMD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/flecha roja 32x32.jpg"))); // NOI18N
+        fSButtonMD1.setColorNormal(new java.awt.Color(255, 0, 0));
+        fSButtonMD1.setColorTextNormal(new java.awt.Color(204, 204, 204));
+        fSButtonMD1.setColorTextPressed(new java.awt.Color(204, 204, 204));
+        fSButtonMD1.setContentAreaFilled(true);
+        fSButtonMD1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                BotonAñadirMousePressed(evt);
+                fSButtonMD1MousePressed(evt);
+            }
+        });
+        fSButtonMD1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fSButtonMD1ActionPerformed(evt);
             }
         });
 
-        BotonEliminar.setText("Eliminar");
-        BotonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                BotonEliminarMousePressed(evt);
+        tblActivos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
+        ));
+        jScrollPane2.setViewportView(tblActivos);
 
-        BotonActualizar.setText("Actualizar");
-        BotonActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                BotonActualizarMousePressed(evt);
-            }
-        });
+        jButton2.setText("Buscar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(txtInfante, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(BotonAñadir)
-                                .addGap(18, 18, 18)
-                                .addComponent(BotonEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BotonActualizar)))
-                        .addGap(0, 216, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(fSButtonMD1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInfante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(82, 82, 82)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BotonAñadir)
-                            .addComponent(BotonEliminar)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(BotonActualizar)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addGap(70, 70, 70)
+                        .addComponent(fSButtonMD1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,50 +227,27 @@ public class Activar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 640, 479);
+        setBounds(0, 0, 712, 618);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonAñadirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonAñadirMousePressed
-       Agregar();
-    }//GEN-LAST:event_BotonAñadirMousePressed
+    private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fSButtonMD1ActionPerformed
 
-    private void BotonEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMousePressed
-        Eliminar();
-    }//GEN-LAST:event_BotonEliminarMousePressed
-
-    private void BotonActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMousePressed
-  Actualizar();
-    }//GEN-LAST:event_BotonActualizarMousePressed
+    private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
+        activarInfante();
+        MostrarTabla();
+    }//GEN-LAST:event_fSButtonMD1MousePressed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Activar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Activar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Activar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Activar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        FlatLightLaf.setup();   
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -209,14 +258,15 @@ public class Activar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonActualizar;
-    private javax.swing.JButton BotonAñadir;
-    private javax.swing.JButton BotonEliminar;
+    private LIB.FSButtonMD fSButtonMD1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblDatos;
-    private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtInfante;
-    private javax.swing.JTextField txtTutor;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tblActivos;
+    private javax.swing.JTable tblInfantes;
     // End of variables declaration//GEN-END:variables
 }

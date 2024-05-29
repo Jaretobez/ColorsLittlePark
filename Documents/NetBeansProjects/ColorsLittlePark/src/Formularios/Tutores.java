@@ -6,144 +6,136 @@ package Formularios;
 
 import Clases.ConexionBD;
 import com.formdev.flatlaf.FlatLightLaf;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jared
  */
 public class Tutores extends javax.swing.JFrame {
+
     ConexionBD con = new ConexionBD();
-   
- DefaultTableModel dtm=new DefaultTableModel();
- 
- Tutor tutor = new Tutor();
+
+    DefaultTableModel dtm = new DefaultTableModel();
+
+    Tutor tutor = new Tutor();
+
     /**
      * Creates new form Tutores
      */
     public Tutores() {
         initComponents();
         MostrarTabla();
-  //      a = new Atributos();
-        this.setLocationRelativeTo(null); 
-         initialize();
+        this.setLocationRelativeTo(null);
+        initialize();
     }
 
-    
-    
-            public void MostrarTabla()
-    {
-      
+    public void MostrarTabla() {
+
         MostrarTabla mostrartabla = new MostrarTabla();
-        
+
         DefaultTableModel modelo = mostrartabla.mostrarTutores();
-        
+
         tblTutor.setModel(modelo);
-        
+
     }
-    
-    
-     void Agregar() {
-         
-        String  tel = txtTelefono.getText();
-       String nombre = txtNomTutor.getText();
+
+    void Agregar() {
+
+        String tel = txtTelefono.getText();
+        String nombre = txtNomTutor.getText();
         String apellido = txtApeTutor.getText();
         String num = String.valueOf(tel);
         // Agregar a la base de datos
         tutor.RegistrarTutor(tel, nombre, apellido);
         // Agregar a la tabla
-               MostrarTabla();
+        MostrarTabla();
         dtm.addRow(new Object[]{tel, nombre, apellido});
     }
-    
-void Eliminar() {
-      DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
-    int fila = tblTutor.getSelectedRow();
-    if (fila >= 0) { 
-        String num_telefono = (String) dtm.getValueAt(fila, 0);
-        // Eliminar de la base de datos
-        tutor.EliminarTutor(num_telefono);
-        // Eliminar de la tabla
-        dtm.removeRow(fila);
-    } else {
-        JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
-        System.out.println("No se seleccionó ninguna fila.");
+
+    void Eliminar() {
+        DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
+        int fila = tblTutor.getSelectedRow();
+        if (fila >= 0) {
+            String num_telefono = (String) dtm.getValueAt(fila, 0);
+            // Eliminar de la base de datos
+            tutor.EliminarTutor(num_telefono);
+            // Eliminar de la tabla
+            dtm.removeRow(fila);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
+            System.out.println("No se seleccionó ninguna fila.");
+        }
     }
-}
 
-    
-void Actualizar() {
-    // Obtener el modelo de la tabla
-    DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
-    // Obtener la fila seleccionada
-    int selectedRow = tblTutor.getSelectedRow();
-    
-    // Obtener los valores de los campos de texto
-    String telefono = txtTelefono.getText();
-    String nombre = txtNomTutor.getText();
-    String apellido = txtApeTutor.getText();
+    void Actualizar() {
+        // Obtener el modelo de la tabla
+        DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
+        // Obtener la fila seleccionada
+        int selectedRow = tblTutor.getSelectedRow();
 
-    // Verificar si una fila está realmente seleccionada
-    if (selectedRow >= 0) {
-        // Actualizar en la base de datos
-        tutor.ModificarTutor(telefono, nombre, apellido);
-        
-        // Actualizar los valores en la tabla
-        dtm.setValueAt(telefono, selectedRow, 0);
-        dtm.setValueAt(nombre, selectedRow, 1);
-        dtm.setValueAt(apellido, selectedRow, 2);
-        
-        System.out.println("Datos del tutor actualizados correctamente.");
-    } else {
-        // Si no hay ninguna fila seleccionada, buscar el teléfono en la tabla
-        boolean found = false;
-        for (int i = 0; i < dtm.getRowCount(); i++) {
-            if (dtm.getValueAt(i, 0).toString().equals(telefono)) {
-                // Actualizar en la base de datos
-                tutor.ModificarTutor(telefono, nombre, apellido);
-                
-                // Actualizar los valores en la tabla
-                dtm.setValueAt(telefono, i, 0);
-                dtm.setValueAt(nombre, i, 1);
-                dtm.setValueAt(apellido, i, 2);
-                
-                System.out.println("Datos del tutor actualizados correctamente.");
-                found = true;
-                break;
+        // Obtener los valores de los campos de texto
+        String telefono = txtTelefono.getText();
+        String nombre = txtNomTutor.getText();
+        String apellido = txtApeTutor.getText();
+
+        // Verificar si una fila está realmente seleccionada
+        if (selectedRow >= 0) {
+            // Actualizar en la base de datos
+            tutor.ModificarTutor(telefono, nombre, apellido);
+
+            // Actualizar los valores en la tabla
+            dtm.setValueAt(telefono, selectedRow, 0);
+            dtm.setValueAt(nombre, selectedRow, 1);
+            dtm.setValueAt(apellido, selectedRow, 2);
+
+            System.out.println("Datos del tutor actualizados correctamente.");
+        } else {
+            // Si no hay ninguna fila seleccionada, buscar el teléfono en la tabla
+            boolean found = false;
+            for (int i = 0; i < dtm.getRowCount(); i++) {
+                if (dtm.getValueAt(i, 0).toString().equals(telefono)) {
+                    // Actualizar en la base de datos
+                    tutor.ModificarTutor(telefono, nombre, apellido);
+
+                    // Actualizar los valores en la tabla
+                    dtm.setValueAt(telefono, i, 0);
+                    dtm.setValueAt(nombre, i, 1);
+                    dtm.setValueAt(apellido, i, 2);
+
+                    System.out.println("Datos del tutor actualizados correctamente.");
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Error: No se encontró un tutor con el número de teléfono especificado.");
             }
         }
-        if (!found) {
-            System.out.println("Error: No se encontró un tutor con el número de teléfono especificado.");
+    }
+
+    void Consultar() {
+        String telefono = jTextField1.getText();  // Obtener el número de teléfono desde el campo de texto
+        // Limpiar la tabla antes de mostrar los resultados
+        dtm.setRowCount(0);
+
+        // Consultar tutor según el número de teléfono proporcionado
+        String[] tutorInfo = tutor.ConsultarTutor(telefono);
+
+        if (tutorInfo[0] != null) {
+            // Agregar los datos obtenidos a la tabla
+            dtm.addRow(tutorInfo);
+            System.out.println("consulta:" + tutorInfo);
+            MostrarTabla();
+        } else {
+            System.out.println("No se encontró ningún tutor con el número de teléfono especificado.");
         }
     }
-}
 
-void Consultar() {
-    String telefono = jTextField1.getText();  // Obtener el número de teléfono desde el campo de texto
-    // Limpiar la tabla antes de mostrar los resultados
-    dtm.setRowCount(0);
-
-    // Consultar tutor según el número de teléfono proporcionado
-    String[] tutorInfo = tutor.ConsultarTutor(telefono);
-
-    if (tutorInfo[0] != null) {
-        // Agregar los datos obtenidos a la tabla
-        dtm.addRow(tutorInfo);
-        System.out.println("consulta:" + tutorInfo);
-        MostrarTabla();
-    } else {
-        System.out.println("No se encontró ningún tutor con el número de teléfono especificado.");
-    }
-}
-
-
-
-    
-    
-private void initialize() {
+    private void initialize() {
 
         // Inicializar el modelo de la tabla y la tabla
         dtm = new DefaultTableModel(new Object[]{"num_telefono", "nombre", "apellido"}, 0);
@@ -151,24 +143,22 @@ private void initialize() {
         tblTutor.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                       
+
                     int selectedRow = tblTutor.getSelectedRow();
                     DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
                     if (selectedRow >= 0) {
                         txtTelefono.setText(dtm.getValueAt(selectedRow, 0).toString());
                         txtNomTutor.setText(dtm.getValueAt(selectedRow, 1).toString());
                         txtApeTutor.setText(dtm.getValueAt(selectedRow, 2).toString());
-                      
+
                     }
-                    
+
                 }
             }
         });
-        
-}
-    
-    
-    
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -300,7 +290,7 @@ private void initialize() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
-       
+
     }//GEN-LAST:event_BotonModificarActionPerformed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
@@ -309,8 +299,8 @@ private void initialize() {
     }//GEN-LAST:event_jButton2MousePressed
 
     private void BotonAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonAgregarMousePressed
-       Agregar();
-       MostrarTabla();
+        Agregar();
+        MostrarTabla();
     }//GEN-LAST:event_BotonAgregarMousePressed
 
     private void BotonModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonModificarMousePressed
@@ -319,8 +309,8 @@ private void initialize() {
     }//GEN-LAST:event_BotonModificarMousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-       Eliminar();
-       MostrarTabla();
+        Eliminar();
+        MostrarTabla();
     }//GEN-LAST:event_jButton1MousePressed
 
     private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
@@ -328,9 +318,9 @@ private void initialize() {
     }//GEN-LAST:event_fSButtonMD1ActionPerformed
 
     private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
-    Infantes infantes = new Infantes();
-     this.dispose();
-     infantes.setVisible(true);
+        Infantes infantes = new Infantes();
+        this.dispose();
+        infantes.setVisible(true);
     }//GEN-LAST:event_fSButtonMD1MousePressed
 
     /**
@@ -338,7 +328,7 @@ private void initialize() {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-  FlatLightLaf.setup();
+        FlatLightLaf.setup();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
