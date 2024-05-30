@@ -4,9 +4,13 @@
  */
 package Clases;
 
+import java.beans.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Activos {
@@ -58,6 +62,42 @@ public class Activos {
             }
         }
     }
+    
+    public List<String[]> ConsultarActivos(String valorBusqueda) {
+    List<String[]> resultados = new ArrayList<>();
+    String[] queries = {
+        "SELECT * FROM activos WHERE idactivo = ?",
+        "SELECT * FROM activos WHERE infante = ?",
+        "SELECT * FROM activos WHERE fk_num_telefono_act = ?"
+    };
+
+    for (String query : queries) {
+        try (PreparedStatement pps = con.prepareStatement(query)) {
+             pps.setString(1, valorBusqueda);
+             try (ResultSet rs = pps.executeQuery()) {
+                while (rs.next()) {
+                    String[] infanteInfo = new String[3];
+                    infanteInfo[0] = rs.getString("idactivo");
+                    infanteInfo[1] = rs.getString("infante");
+                    infanteInfo[2] = rs.getString("fk_num_telefono_act");
+   
+                    resultados.add(infanteInfo);
+                    // Imprimir cada registro encontrado
+                    System.out.println("Registro encontrado: " + Arrays.toString(infanteInfo));
+                }
+                // Si encontramos resultados, dejamos de buscar
+                if (!resultados.isEmpty()) {
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar los datos en la base de datos: " + e.getMessage());
+        }
+    }
+
+    return resultados;
+}
+
 
     //Funcion que generea un ID aleatorio al activar infante
     public static int generarIdActivo() {
