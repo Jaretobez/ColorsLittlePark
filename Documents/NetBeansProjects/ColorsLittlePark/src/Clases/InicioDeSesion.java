@@ -14,13 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-public class InicioDeSesion {
-    
+public class InicioDeSesion {   
        ConexionBD con = new ConexionBD();
     public InicioDeSesion() {
-
     }
     
+    //Funcion para verificar las credenciales al iniciar sesion
     public void verificarCredenciales( JTextField usuario, JPasswordField contrasena) {
     try{ 
     ResultSet rs = null;
@@ -38,7 +37,6 @@ public class InicioDeSesion {
     rs = ps.executeQuery();
     
     if (rs.next ()) {
-     JOptionPane.showMessageDialog(null, "El usuario es correcto");
      Home objetoMenu = new Home();
      objetoMenu.setVisible(true);
     ((JFrame) usuario.getTopLevelAncestor()).dispose();

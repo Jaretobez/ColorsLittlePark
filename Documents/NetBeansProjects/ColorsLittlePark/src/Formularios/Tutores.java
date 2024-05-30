@@ -4,8 +4,10 @@
  */
 package Formularios;
 
+import Clases.Tutor;
 import Clases.ConexionBD;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -116,24 +118,30 @@ public class Tutores extends javax.swing.JFrame {
             }
         }
     }
+    
+    
+public void Consultar() {
+    String buscar = txtBuscar.getText();
 
-    void Consultar() {
-        String telefono = jTextField1.getText();  // Obtener el número de teléfono desde el campo de texto
+    // Consultar tutor según el dato proporcionado
+    List<String[]> tutorInfo = tutor.ConsultarTutor(buscar);  
         // Limpiar la tabla antes de mostrar los resultados
-        dtm.setRowCount(0);
+    dtm.setRowCount(0);
 
-        // Consultar tutor según el número de teléfono proporcionado
-        String[] tutorInfo = tutor.ConsultarTutor(telefono);
-
-        if (tutorInfo[0] != null) {
-            // Agregar los datos obtenidos a la tabla
-            dtm.addRow(tutorInfo);
-            System.out.println("consulta:" + tutorInfo);
-            MostrarTabla();
-        } else {
-            System.out.println("No se encontró ningún tutor con el número de teléfono especificado.");
-        }
+    if (!tutorInfo.isEmpty()) {
+        // Agregar los datos obtenidos a la tabla
+        for (String[] info : tutorInfo) {
+            Object[] rowData = new Object[]{info[0], info[1], info[2]}; // num_telefono, nombre, apellido
+            dtm.addRow(rowData);
+        }    
+        tblTutor.setModel(dtm);
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontró ningún tutor con el dato especificado.");
     }
+}
+
+
+
 
     private void initialize() {
 
@@ -179,8 +187,7 @@ public class Tutores extends javax.swing.JFrame {
         txtNomTutor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtApeTutor = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTutor = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -188,6 +195,8 @@ public class Tutores extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        fSButtonMD2 = new LIB.FSButtonMD();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -270,23 +279,8 @@ public class Tutores extends javax.swing.JFrame {
         txtApeTutor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         jPanel1.add(txtApeTutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 216, 30));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busquda (2).png"))); // NOI18N
-        jButton2.setText("Buscar");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton2MousePressed(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 90, -1));
-
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 277, 30));
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 220, 30));
 
         tblTutor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         tblTutor.setModel(new javax.swing.table.DefaultTableModel(
@@ -338,6 +332,33 @@ public class Tutores extends javax.swing.JFrame {
         jLabel7.setText("Eliminar");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busquda (2).png"))); // NOI18N
+        jButton3.setText("Buscar");
+        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton3MousePressed(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 90, 30));
+
+        fSButtonMD2.setBackground(new java.awt.Color(255, 0, 0));
+        fSButtonMD2.setForeground(new java.awt.Color(255, 0, 0));
+        fSButtonMD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Actualizarinfo.png"))); // NOI18N
+        fSButtonMD2.setColorNormal(new java.awt.Color(255, 0, 0));
+        fSButtonMD2.setContentAreaFilled(true);
+        fSButtonMD2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD2MousePressed(evt);
+            }
+        });
+        jPanel1.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 40, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -355,11 +376,6 @@ public class Tutores extends javax.swing.JFrame {
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
 
     }//GEN-LAST:event_BotonModificarActionPerformed
-
-    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        Consultar();
-        MostrarTabla();
-    }//GEN-LAST:event_jButton2MousePressed
 
     private void BotonAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonAgregarMousePressed
         Agregar();
@@ -386,10 +402,6 @@ public class Tutores extends javax.swing.JFrame {
         infantes.setVisible(true);
     }//GEN-LAST:event_fSButtonMD1MousePressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void BotonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonAgregarActionPerformed
@@ -397,6 +409,18 @@ public class Tutores extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
+        Consultar();
+    }//GEN-LAST:event_jButton3MousePressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void fSButtonMD2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD2MousePressed
+        MostrarTabla();
+    }//GEN-LAST:event_fSButtonMD2MousePressed
 
     /**
      * @param args the command line arguments
@@ -418,8 +442,9 @@ public class Tutores extends javax.swing.JFrame {
     private javax.swing.JButton BotonAgregar;
     private javax.swing.JButton BotonModificar;
     private LIB.FSButtonMD fSButtonMD1;
+    private LIB.FSButtonMD fSButtonMD2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -430,9 +455,9 @@ public class Tutores extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblTutor;
     private javax.swing.JTextField txtApeTutor;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtNomTutor;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

@@ -12,18 +12,15 @@ import java.sql.*;
 import java.util.concurrent.TimeUnit;
 
 public class Venta {
-
     ConexionBD con = new ConexionBD();
-
     public Venta() {
         a = new Atributos();
-
     }
-
+    
+    //Funcion para agregar registro de venta en la tabla ventas
     public void AgregarVenta(String tipo_pago, int fk_activo, Time  hora_entrada, Time  hora_salida) {
         int folio = 0;
         boolean error = false;
-
         try {
             boolean folioexist;
             do {
@@ -43,7 +40,6 @@ public class Venta {
         Timestamp fecha = new Timestamp(System.currentTimeMillis());
         int tiempo = calcularTiempoTotal(hora_entrada, hora_salida);
         double monto_total = calcularMontoTotal(tiempo);
-
         try {
             String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, fk_activo, hora_entrada, hora_salida) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pps = con.prepareStatement(query);
@@ -62,21 +58,13 @@ public class Venta {
         if (!error) {
             System.out.println("Datos guardados correctamente.");
         }
-        /*Folio
-tiempo
-tipo_pago
-monto_total
-fecha
-id_activo
-hora_entrada
-hora_salida*/
-
     }
 
     public void MostrarVenta() {
 
     }
 
+    //Funcion para generar un folio de venta aleatorio
     public static int generarFolio() {
         Random random = new Random();
         // Generar un número aleatorio entre 1000 y 9999
@@ -84,6 +72,7 @@ hora_salida*/
         return id;
     }
 
+    //Funcion para verificar si ya existe el folio generado
     public boolean VerificaFolio(int idinfante) {
         try {
             String query = "SELECT * FROM ventas WHERE folio = ?";
@@ -98,6 +87,7 @@ hora_salida*/
         }
     }
 
+    //Funcion para calcular el Tiempo Total
 public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
      /*   if (hora_entrada == null || hora_salida == null) {
             throw new IllegalArgumentException("Las horas de entrada y salida no pueden ser nulas");
@@ -111,7 +101,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
         return difMinutes;
     }
     
-    
+      //Funcion para calcular el monto total en base al tiempo total
         public static double calcularMontoTotal(int tiempoTotal) {
         // Convertir el tiempo total de Timestamp a minutos
      //   long totalMinutes = TimeUnit.MILLISECONDS.toMinutes(tiempoTotal.getTime());        
@@ -138,42 +128,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
     }
 
     private final Atributos a;
-    
-        public static void main(String[] args) {
-        Venta venta = new Venta();
-        //CONECTAR A BASE DE DATOS
-        ConexionBD conexionBD = new ConexionBD();
-        conexionBD.conector();
-
-//CONSULTAR 
-   //     infante.ConsultarInfante(9056);
-
-//INSERTAR
-  /*   // Aquí defines los valores que quieres ingresar
-    String tipo_pago = "tarjeta";
-    int fk_activo = 15298;
-    Time hora_entrada = Time.valueOf("08:00:00");
-    Time hora_salida = Time.valueOf("09:06:00"); 
-    venta.AgregarVenta(tipo_pago, fk_activo, hora_entrada, hora_salida);
-    
-    int minutos_totales = calcularTiempoTotal(hora_entrada, hora_salida);
-    System.out.println("tiempo total en minutos:" + minutos_totales );
-    double monto = calcularMontoTotal(minutos_totales);
-    System.out.println("monto total calculado:" + monto );*/
-      
- /*
-//ELIMINAR 
- //   infante.EliminarInfante(4);
-/* //MODIFICAR
-        int id = 8787;
-        String newnom = "chavo";
-        String newape = "delocho";
-        int newedad = 56;
-        infante.ModificarInfante(id, newnom, newape, newedad);
-    
-    String tipo_pago, int fk_activo, Timestamp hora_entrada, Timestamp hora_salida
-*/
-   }
+     
     }
 
 

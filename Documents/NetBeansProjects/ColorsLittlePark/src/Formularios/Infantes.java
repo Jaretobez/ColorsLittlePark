@@ -4,9 +4,11 @@
  */
 package Formularios;
 
+import Clases.Tutor;
 import Clases.ConexionBD;
 import Clases.Infante;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
@@ -19,6 +21,7 @@ public class Infantes extends javax.swing.JFrame {
     ConexionBD con = new ConexionBD();
     DefaultTableModel dtm = new DefaultTableModel();
     Infante infante = new Infante();
+    Tutor tutor = new Tutor();
 
     /**
      * Creates new form Infantes
@@ -89,7 +92,6 @@ public class Infantes extends javax.swing.JFrame {
         String apellido = txtApellido.getText();
         int edad = (int) SpinnerEdad.getValue(); // Parsear el valor del Spinner como un entero
         String telefono = txtTelefono.getText();
-
         // Llamar al método RegistrarInfante() en la instancia de Infante
         infante.RegistrarInfante(nombre, apellido, edad, telefono);
         // Agregar a la tabla    
@@ -165,6 +167,52 @@ public class Infantes extends javax.swing.JFrame {
             }
         }
     }
+    
+    
+public void ConsultarInfantee() {
+    String buscar = txtBuscarInfante.getText();
+    String buscar2 = String.valueOf(buscar);
+    DefaultTableModel dtm = (DefaultTableModel) tblInfantes.getModel();
+    // Consultar tutor según el dato proporcionado
+    List<String[]> infanteInfo = infante.ConsultarInfante(buscar2);  
+    // Limpiar la tabla antes de mostrar los resultados
+    dtm.setRowCount(0);
+   
+    if (!infanteInfo.isEmpty()) {
+        // Agregar los datos obtenidos a la tabla
+        for (String[] info : infanteInfo) {
+            Object[] rowData = new Object[]{info[0], info[1], info[2], info[3], info[4]}; 
+            dtm.addRow(rowData);
+        } 
+           
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontró ningún tutor con el dato especificado.");
+    }
+    tblInfantes.setModel(dtm);
+}
+
+public void ConsultarTutorr() {
+    String buscar = txtBuscarTutor.getText();
+   DefaultTableModel dtm = (DefaultTableModel) tblTutores.getModel();
+    // Consultar tutor según el dato proporcionado
+    List<String[]> tutorInfo = tutor.ConsultarTutor(buscar);  
+        // Limpiar la tabla antes de mostrar los resultados
+    dtm.setRowCount(0);
+
+    if (!tutorInfo.isEmpty()) {
+        // Agregar los datos obtenidos a la tabla
+        for (String[] info : tutorInfo) {
+            Object[] rowData = new Object[]{info[0], info[1], info[2]}; 
+            dtm.addRow(rowData);
+        }    
+       
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontró ningún tutor con el dato especificado.");
+    }
+     tblTutores.setModel(dtm);
+}
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -181,11 +229,11 @@ public class Infantes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTutores = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
+        txtBuscarTutor = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblInfantes = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
+        txtBuscarInfante = new javax.swing.JTextField();
         SpinnerEdad = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -199,6 +247,7 @@ public class Infantes extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        fSButtonMD6 = new LIB.FSButtonMD();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -247,26 +296,32 @@ public class Infantes extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 400, 230));
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Buscar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
 
-        jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 200, -1));
+        txtBuscarTutor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        jPanel1.add(txtBuscarTutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 200, -1));
 
         tblInfantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         tblInfantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -277,11 +332,16 @@ public class Infantes extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 400, 230));
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Buscar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton2MousePressed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, -1, -1));
 
-        jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 220, -1));
+        txtBuscarInfante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        jPanel1.add(txtBuscarInfante, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 220, -1));
 
         SpinnerEdad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         jPanel1.add(SpinnerEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 80, -1));
@@ -373,7 +433,7 @@ public class Infantes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(387, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +443,17 @@ public class Infantes extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 70));
+
+        fSButtonMD6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Actualizarinfo.png"))); // NOI18N
+        fSButtonMD6.setColorNormal(new java.awt.Color(255, 0, 0));
+        fSButtonMD6.setContentAreaFilled(true);
+        fSButtonMD6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD6MousePressed(evt);
+            }
+        });
+        jPanel1.add(fSButtonMD6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 50, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -419,6 +489,18 @@ public class Infantes extends javax.swing.JFrame {
         Actualizar();
     }//GEN-LAST:event_fSButtonMD4MousePressed
 
+    private void fSButtonMD6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD6MousePressed
+        MostrarTabla();
+    }//GEN-LAST:event_fSButtonMD6MousePressed
+
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+        ConsultarInfantee();
+    }//GEN-LAST:event_jButton2MousePressed
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+       ConsultarTutorr();
+    }//GEN-LAST:event_jButton1MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -441,6 +523,7 @@ public class Infantes extends javax.swing.JFrame {
     private LIB.FSButtonMD fSButtonMD3;
     private LIB.FSButtonMD fSButtonMD4;
     private LIB.FSButtonMD fSButtonMD5;
+    private LIB.FSButtonMD fSButtonMD6;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -456,11 +539,11 @@ public class Infantes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tblInfantes;
     private javax.swing.JTable tblTutores;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtBuscarInfante;
+    private javax.swing.JTextField txtBuscarTutor;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;

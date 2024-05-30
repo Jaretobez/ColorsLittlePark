@@ -17,6 +17,7 @@ public class Activos {
         a = new Atributos();
     }
 
+    //Funcion para activar al infante
     public void Activar(int id_infante, String num_tutor) {
         if (VerificaInfanteEnActivos(id_infante)) {
             System.out.println("El infante con id " + id_infante + " ya está activo.");
@@ -58,12 +59,14 @@ public class Activos {
         }
     }
 
+    //Funcion que generea un ID aleatorio al activar infante
     public static int generarIdActivo() {
         Random random = new Random();
         int id = 100 + random.nextInt(900);
         return id;
     }
 
+    //funcion para verificar si el ID generado existe en la tabla activos
     public boolean VerificaIdActivo(int id) {
         try {
             String query = "SELECT * FROM activos WHERE idactivo = ?";
@@ -75,7 +78,8 @@ public class Activos {
             return false;  // Manejar la excepción de alguna manera adecuada para tu aplicación
         }
     }
-
+    
+    //funcion para verificar la existencia del infante en la tabla activos
     public boolean VerificaInfanteEnActivos(int id_infante) {
         boolean existe = false;
         String query = "SELECT COUNT(*) FROM activos WHERE infante = ?";
@@ -96,12 +100,5 @@ public class Activos {
     }
 
     private final Atributos a;
-
-    public static void main(String[] args) {
-        Activos activos = new Activos();
-        //CONECTAR A BASE DE DATOS
-        ConexionBD conexionBD = new ConexionBD();
-        conexionBD.conector();
-    }
 
 }
