@@ -93,8 +93,8 @@ public class MostrarTabla {
     }
 
     public DefaultTableModel MostrarActivos() {
-        String[] nomColumnas = {"idactivo", "infante", "fk_num_telefono_act"};
-        String[] registros = new String[3];
+        String[] nomColumnas = {"idactivo", "infante", "fk_num_telefono_act", "hora_entrada"};
+        String[] registros = new String[4];
         DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas);
         String sql = "SELECT * FROM activos";
         try {
@@ -105,6 +105,34 @@ public class MostrarTabla {
                 registros[0] = rs.getString("idactivo");
                 registros[1] = rs.getString("infante");
                 registros[2] = rs.getString("fk_num_telefono_act");
+                registros[3] = rs.getString("hora_entrada");
+                modelo.addRow(registros);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar");
+        }
+        return modelo;
+    }
+    
+    
+        public DefaultTableModel MostrarVentas() {
+        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "fk_infante", "hora_entrada", "hora_salida"};
+        String[] registros = new String[8];
+        DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas);
+        String sql = "SELECT * FROM venta";
+        try {
+            connection = con.conector();
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString("folio");
+                registros[1] = rs.getString("tiempo");
+                registros[2] = rs.getString("tipo_pago");
+                registros[3] = rs.getString("monto_total");
+                registros[4] = rs.getString("fecha");
+                registros[5] = rs.getString("fk_infante");
+                registros[6] = rs.getString("hora_entrada");
+                registros[7] = rs.getString("hora_salida");
                 modelo.addRow(registros);
             }
         } catch (SQLException e) {

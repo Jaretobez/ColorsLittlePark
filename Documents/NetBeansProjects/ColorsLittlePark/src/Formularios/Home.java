@@ -148,6 +148,11 @@ public class Home extends javax.swing.JFrame {
         fSButtonMD4.setColorNormal(new java.awt.Color(255, 51, 51));
         fSButtonMD4.setColorTextHover(new java.awt.Color(255, 51, 51));
         fSButtonMD4.setContentAreaFilled(true);
+        fSButtonMD4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD4MousePressed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -418,6 +423,11 @@ public class Home extends javax.swing.JFrame {
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
         ConsultarActivoss();
     }//GEN-LAST:event_jButton3MousePressed
+
+    private void fSButtonMD4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD4MousePressed
+           Ventas ventas = new Ventas();
+     ventas.setVisible(true);
+    }//GEN-LAST:event_fSButtonMD4MousePressed
 
     /**
      * @param args the command line arguments

@@ -22,15 +22,13 @@ public class Activos {
     }
 
     //Funcion para activar al infante
-    public void Activar(int id_infante, String num_tutor) {
+    public void Activar(int id_infante, String num_tutor, String hora_entrada) {
         if (VerificaInfanteEnActivos(id_infante)) {
             System.out.println("El infante con id " + id_infante + " ya está activo.");
             return; // Salir del método para evitar duplicados
         }
-
         int id = 0;
         boolean error = false;
-
         try {
             boolean idverifica;
             do {
@@ -50,11 +48,12 @@ public class Activos {
 
         if (!error) {
             try {
-                String query = "INSERT INTO activos(idactivo, infante, fk_num_telefono_act) VALUES(?, ?, ?)";
+                String query = "INSERT INTO activos(idactivo, infante, fk_num_telefono_act, hora_entrada) VALUES(?, ?, ?, ?)";
                 PreparedStatement pps = con.prepareStatement(query);
                 pps.setInt(1, id);
                 pps.setInt(2, id_infante);
                 pps.setString(3, num_tutor);
+                pps.setString(4, hora_entrada);
                 pps.executeUpdate();
                 System.out.println("Datos guardados correctamente.");
             } catch (SQLException e) {
@@ -76,10 +75,11 @@ public class Activos {
              pps.setString(1, valorBusqueda);
              try (ResultSet rs = pps.executeQuery()) {
                 while (rs.next()) {
-                    String[] infanteInfo = new String[3];
+                    String[] infanteInfo = new String[4];
                     infanteInfo[0] = rs.getString("idactivo");
                     infanteInfo[1] = rs.getString("infante");
                     infanteInfo[2] = rs.getString("fk_num_telefono_act");
+                    infanteInfo[3] = rs.getString("hora_entrada");
    
                     resultados.add(infanteInfo);
                     // Imprimir cada registro encontrado

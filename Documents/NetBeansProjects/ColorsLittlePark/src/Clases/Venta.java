@@ -18,7 +18,7 @@ public class Venta {
     }
     
     //Funcion para agregar registro de venta en la tabla ventas
-    public void AgregarVenta(String tipo_pago, int fk_activo, Time  hora_entrada, Time  hora_salida) {
+    public void AgregarVenta(String tipo_pago, int ID_infante, Time  hora_entrada, Time  hora_salida) {
         int folio = 0;
         boolean error = false;
         try {
@@ -41,14 +41,14 @@ public class Venta {
         int tiempo = calcularTiempoTotal(hora_entrada, hora_salida);
         double monto_total = calcularMontoTotal(tiempo);
         try {
-            String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, fk_activo, hora_entrada, hora_salida) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, fk_infante, hora_entrada, hora_salida) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setInt(1, folio);
             pps.setInt(2, tiempo);
             pps.setString(3, tipo_pago);
             pps.setDouble(4, monto_total);
             pps.setTimestamp(5, fecha);
-            pps.setInt(6, fk_activo);
+            pps.setInt(6, ID_infante);
             pps.setTime(7, hora_entrada);
             pps.setTime(8, hora_salida);
             pps.executeUpdate();

@@ -8,6 +8,8 @@ import Clases.Activos;
 import Clases.ConexionBD;
 import Clases.Infante;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -84,11 +86,16 @@ private void activarInfante() {
             
             int idInfante = Integer.parseInt(idInfanteObj.toString());
             String numTelefono = numTelefonoObj.toString();
+
+            // Obtener la hora actual
+            LocalTime horaEntrada = LocalTime.now();
+            // Convertir la hora actual a formato de cadena (opcional)
+            String horaEntradaStr = horaEntrada.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             
             if (activos.VerificaInfanteEnActivos(idInfante)) {
                 JOptionPane.showMessageDialog(null, "El infante con ID " + idInfante + " ya está activo.");
             } else {
-                activos.Activar(idInfante, numTelefono);
+                activos.Activar(idInfante, numTelefono, horaEntradaStr);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
@@ -266,9 +273,9 @@ private void activarInfante() {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(277, 277, 277)
+                .addGap(334, 334, 334)
                 .addComponent(jLabel1)
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
