@@ -417,6 +417,11 @@ public void ConsultarTutorr() {
         fSButtonMD5.setColorNormal(new java.awt.Color(255, 0, 0));
         fSButtonMD5.setColorTextHover(new java.awt.Color(255, 0, 0));
         fSButtonMD5.setContentAreaFilled(true);
+        fSButtonMD5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD5MousePressed(evt);
+            }
+        });
         jPanel1.add(fSButtonMD5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, 129, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 860, 10));
 
@@ -500,6 +505,12 @@ public void ConsultarTutorr() {
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
        ConsultarTutorr();
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void fSButtonMD5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD5MousePressed
+            Activar activar = new Activar();
+     activar.setVisible(true);
+     dispose();
+    }//GEN-LAST:event_fSButtonMD5MousePressed
 
     /**
      * @param args the command line arguments
