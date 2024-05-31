@@ -116,7 +116,7 @@ public class MostrarTabla {
     
     
         public DefaultTableModel MostrarVentas() {
-        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "fk_infante", "hora_entrada", "hora_salida"};
+        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "hora_entrada", "hora_salida", "nom_infante"};
         String[] registros = new String[8];
         DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas);
         String sql = "SELECT * FROM venta";
@@ -130,9 +130,9 @@ public class MostrarTabla {
                 registros[2] = rs.getString("tipo_pago");
                 registros[3] = rs.getString("monto_total");
                 registros[4] = rs.getString("fecha");
-                registros[5] = rs.getString("fk_infante");
-                registros[6] = rs.getString("hora_entrada");
-                registros[7] = rs.getString("hora_salida");
+                registros[5] = rs.getString("hora_entrada");
+                registros[6] = rs.getString("hora_salida");
+                registros[7] = rs.getString("nom_infante");
                 modelo.addRow(registros);
             }
         } catch (SQLException e) {

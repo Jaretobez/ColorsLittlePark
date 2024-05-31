@@ -18,9 +18,10 @@ public class Venta {
     }
     
     //Funcion para agregar registro de venta en la tabla ventas
-    public void AgregarVenta(String tipo_pago, int ID_infante, Time  hora_entrada, Time  hora_salida) {
+    public void AgregarVenta(String tipo_pago, int ID_infante, Time hora_entrada, Time hora_salida) {
         int folio = 0;
         boolean error = false;
+
         try {
             boolean folioexist;
             do {
@@ -37,31 +38,37 @@ public class Venta {
             System.out.println("Error: " + e.getMessage());
             error = true;
         }
+
         Timestamp fecha = new Timestamp(System.currentTimeMillis());
         int tiempo = calcularTiempoTotal(hora_entrada, hora_salida);
         double monto_total = calcularMontoTotal(tiempo);
+
+        String nombreInfante = obtenerNombreInfante(ID_infante);
+
+        if (nombreInfante == null) {
+            System.out.println("Error al obtener el nombre del infante.");
+            return;
+        }
+
         try {
-            String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, fk_infante, hora_entrada, hora_salida) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, hora_entrada, hora_salida, nom_infante) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setInt(1, folio);
             pps.setInt(2, tiempo);
             pps.setString(3, tipo_pago);
             pps.setDouble(4, monto_total);
             pps.setTimestamp(5, fecha);
-            pps.setInt(6, ID_infante);
-            pps.setTime(7, hora_entrada);
-            pps.setTime(8, hora_salida);
+            pps.setTime(6, hora_entrada);
+            pps.setTime(7, hora_salida);
+            pps.setString(8, nombreInfante);
             pps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
         }
+
         if (!error) {
             System.out.println("Datos guardados correctamente.");
         }
-    }
-
-    public void MostrarVenta() {
-
     }
 
     //Funcion para generar un folio de venta aleatorio
@@ -125,6 +132,23 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
             }
             return monto;
         }
+    }
+        
+        
+            private String obtenerNombreInfante(int ID_infante) {
+        String nombreInfante = null;
+        try {
+            String query = "SELECT nombre FROM infantes WHERE ID_infante = ?";
+            PreparedStatement pps = con.prepareStatement(query);
+            pps.setInt(1, ID_infante);
+            ResultSet rs = pps.executeQuery();
+            if (rs.next()) {
+                nombreInfante = rs.getString("nombre");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el nombre del infante: " + e.getMessage());
+        }
+        return nombreInfante;
     }
 
     private final Atributos a;

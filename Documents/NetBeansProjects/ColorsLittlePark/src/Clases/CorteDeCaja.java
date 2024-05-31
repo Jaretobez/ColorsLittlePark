@@ -105,9 +105,9 @@ public class CorteDeCaja {
             PdfPCell venta3 = new PdfPCell(new Phrase("Tipo Pago", negrita));
             PdfPCell venta4 = new PdfPCell(new Phrase("Monto Total", negrita));
             PdfPCell venta5 = new PdfPCell(new Phrase("Fecha", negrita));
-            PdfPCell venta6 = new PdfPCell(new Phrase("Infante", negrita));
-            PdfPCell venta7 = new PdfPCell(new Phrase("Hora Entrada", negrita));
-            PdfPCell venta8 = new PdfPCell(new Phrase("Hora Salida", negrita));
+            PdfPCell venta6 = new PdfPCell(new Phrase("Hora Entrada", negrita));
+            PdfPCell venta7 = new PdfPCell(new Phrase("Hora Salida", negrita));
+            PdfPCell venta8 = new PdfPCell(new Phrase("Infante", negrita));
             // Quitar bordes
             venta1.setBorder(0);
             venta2.setBorder(0);
@@ -149,18 +149,18 @@ public class CorteDeCaja {
                     String tipoPago = rs.getString("tipo_pago");
                     String monto_total = rs.getString("monto_total");
                     String fecha2 = rs.getString("fecha");
-                    String fkInfante = rs.getString("fk_infante");
                     String horaEntrada = rs.getString("hora_entrada");
                     String horaSalida = rs.getString("hora_salida");
+                    String Infante = rs.getString("nom_infante");
 
                     tablaVentas.addCell(folio);
                     tablaVentas.addCell(tiempo);
                     tablaVentas.addCell(tipoPago);
                     tablaVentas.addCell(monto_total);
-                    tablaVentas.addCell(fecha2);
-                    tablaVentas.addCell(fkInfante);
+                    tablaVentas.addCell(fecha2);                  
                     tablaVentas.addCell(horaEntrada);
                     tablaVentas.addCell(horaSalida);
+                    tablaVentas.addCell(Infante);
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al conectar: " + e.getMessage());
