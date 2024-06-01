@@ -35,12 +35,12 @@
     <Container class="LIB.JEImagePanel" name="jEImagePanel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/Canada_Mountains_Scenery_488701.jpg"/>
+          <Image iconType="3" name="/img/LogoCLP.jpg"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="560" height="500"/>
+          <AbsoluteConstraints x="0" y="0" width="560" height="490"/>
         </Constraint>
       </Constraints>
 

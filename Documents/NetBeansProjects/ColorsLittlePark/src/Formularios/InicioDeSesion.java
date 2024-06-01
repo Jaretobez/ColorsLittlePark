@@ -40,7 +40,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jEImagePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Canada_Mountains_Scenery_488701.jpg"))); // NOI18N
+        jEImagePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoCLP.jpg"))); // NOI18N
         jEImagePanel1.setLayout(null);
 
         jPanelTransparente1.setBackground(new java.awt.Color(98, 89, 87));
@@ -127,7 +127,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         jPanelTransparente1.setBounds(130, 30, 300, 410);
 
         getContentPane().add(jEImagePanel1);
-        jEImagePanel1.setBounds(0, 0, 560, 500);
+        jEImagePanel1.setBounds(0, 0, 560, 490);
 
         setSize(new java.awt.Dimension(557, 485));
         setLocationRelativeTo(null);

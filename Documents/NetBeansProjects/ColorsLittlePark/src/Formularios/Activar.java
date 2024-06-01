@@ -40,7 +40,7 @@ public class Activar extends javax.swing.JFrame {
     public void MostrarTabla() {     
     MostrarTabla mostrartabla = new MostrarTabla();      
     DefaultTableModel modeloActivos = mostrartabla.MostrarActivos(); 
-    tblActivos.setModel(modeloActivos);  
+    tblActivos2.setModel(modeloActivos);  
     DefaultTableModel modeloInfantes = mostrartabla.mostrarInfantes(); 
     tblInfantes.setModel(modeloInfantes);  
 }
@@ -110,7 +110,7 @@ private void activarInfante() {
     public void ConsultarActivoss() {
     String buscar = txtBuscarActivo.getText();
     String buscar2 = String.valueOf(buscar);
-    DefaultTableModel dtm = (DefaultTableModel) tblActivos.getModel();
+    DefaultTableModel dtm = (DefaultTableModel) tblActivos2.getModel();
     // Consultar tutor según el dato proporcionado
     List<String[]> activoInfo = activos.ConsultarActivos(buscar2);  
     // Limpiar la tabla antes de mostrar los resultados
@@ -119,14 +119,14 @@ private void activarInfante() {
     if (!activoInfo.isEmpty()) {
         // Agregar los datos obtenidos a la tabla
         for (String[] info : activoInfo) {
-            Object[] rowData = new Object[]{info[0], info[1], info[2]}; 
+            Object[] rowData = new Object[]{info[0], info[1], info[2], info[3]}; 
             dtm.addRow(rowData);
         } 
            
     } else {
         JOptionPane.showMessageDialog(null, "No se encontró ningún tutor con el dato especificado.");
     }
-    tblActivos.setModel(dtm);
+    tblActivos2.setModel(dtm);
 }
     
     
@@ -151,6 +151,28 @@ private void activarInfante() {
     }
     tblInfantes.setModel(dtm);
 }
+    
+    
+    private void desactivarInfante() {
+        DefaultTableModel dtm = (DefaultTableModel) tblActivos2.getModel();
+        int selectedRow = tblActivos2.getSelectedRow();
+        if (selectedRow >= 0) {
+            try {
+                Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+                int idActivo = Integer.parseInt(idInfanteObj.toString());
+
+                    activos.Desactivar(idActivo);
+                    JOptionPane.showMessageDialog(null, "Infante desactivado correctamente.");
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para desactivar.");
+        }
+    }
 
    
     /**
@@ -171,7 +193,7 @@ private void activarInfante() {
         jButton1 = new javax.swing.JButton();
         fSButtonMD1 = new LIB.FSButtonMD();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblActivos = new javax.swing.JTable();
+        tblActivos2 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         txtBuscarActivo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -179,13 +201,13 @@ private void activarInfante() {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         fSButtonMD2 = new LIB.FSButtonMD();
+        fSButtonMD3 = new LIB.FSButtonMD();
 
         jScrollPane3.setViewportView(jTextPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblInfantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         tblInfantes.setModel(new javax.swing.table.DefaultTableModel(
@@ -201,10 +223,7 @@ private void activarInfante() {
         ));
         jScrollPane1.setViewportView(tblInfantes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 375, 303));
-
         txtBuscarInfante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        jPanel1.add(txtBuscarInfante, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 178, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busquda (2).png"))); // NOI18N
         jButton1.setText("Buscar");
@@ -214,7 +233,6 @@ private void activarInfante() {
                 jButton1MousePressed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
         fSButtonMD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/flecha roja 32x32.jpg"))); // NOI18N
         fSButtonMD1.setColorNormal(new java.awt.Color(255, 0, 0));
@@ -231,10 +249,9 @@ private void activarInfante() {
                 fSButtonMD1ActionPerformed(evt);
             }
         });
-        jPanel1.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 54, -1));
 
-        tblActivos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        tblActivos.setModel(new javax.swing.table.DefaultTableModel(
+        tblActivos2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        tblActivos2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -245,9 +262,7 @@ private void activarInfante() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblActivos);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 260, 303));
+        jScrollPane2.setViewportView(tblActivos2);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busquda (2).png"))); // NOI18N
         jButton2.setText("Buscar");
@@ -257,10 +272,8 @@ private void activarInfante() {
                 jButton2MousePressed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 67, -1));
 
         txtBuscarActivo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        jPanel1.add(txtBuscarActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 178, 20));
 
         jPanel2.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -273,27 +286,23 @@ private void activarInfante() {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(334, 334, 334)
-                .addComponent(jLabel1)
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(685, 685, 685))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, -1, -1));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Infantes");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 60, -1));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Activos");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 100, 60, -1));
 
         fSButtonMD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Actualizarinfo.png"))); // NOI18N
         fSButtonMD2.setColorNormal(new java.awt.Color(255, 0, 0));
@@ -303,7 +312,90 @@ private void activarInfante() {
                 fSButtonMD2MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 50, 32));
+
+        fSButtonMD3.setBackground(new java.awt.Color(255, 0, 0));
+        fSButtonMD3.setText("Desactivar");
+        fSButtonMD3.setToolTipText("");
+        fSButtonMD3.setColorNormal(new java.awt.Color(255, 0, 0));
+        fSButtonMD3.setColorTextHover(new java.awt.Color(255, 0, 0));
+        fSButtonMD3.setContentAreaFilled(true);
+        fSButtonMD3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD3MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscarInfante, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(92, 92, 92)
+                .addComponent(fSButtonMD2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscarActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(fSButtonMD1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fSButtonMD3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(39, 39, 39))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(14, 14, 14)
+                        .addComponent(txtBuscarInfante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(fSButtonMD2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(14, 14, 14)
+                        .addComponent(txtBuscarActivo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(fSButtonMD1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(fSButtonMD3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(126, 126, 126))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,7 +408,7 @@ private void activarInfante() {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 837, 597);
+        setBounds(0, 0, 875, 597);
     }// </editor-fold>//GEN-END:initComponents
 
     private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
@@ -340,6 +432,11 @@ private void activarInfante() {
         ConsultarActivoss();
     }//GEN-LAST:event_jButton2MousePressed
 
+    private void fSButtonMD3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD3MousePressed
+        desactivarInfante();
+        MostrarTabla();
+    }//GEN-LAST:event_fSButtonMD3MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -358,6 +455,7 @@ private void activarInfante() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LIB.FSButtonMD fSButtonMD1;
     private LIB.FSButtonMD fSButtonMD2;
+    private LIB.FSButtonMD fSButtonMD3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -369,7 +467,7 @@ private void activarInfante() {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTable tblActivos;
+    private javax.swing.JTable tblActivos2;
     private javax.swing.JTable tblInfantes;
     private javax.swing.JTextField txtBuscarActivo;
     private javax.swing.JTextField txtBuscarInfante;

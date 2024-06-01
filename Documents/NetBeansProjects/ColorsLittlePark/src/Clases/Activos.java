@@ -5,6 +5,7 @@
 package Clases;
 
 import java.beans.Statement;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -137,6 +138,22 @@ public class Activos {
         }
 
         return existe;
+    }
+    
+    
+        public void Desactivar(int idactivo) throws IOException {
+        // Implementar la lógica para desactivar al infante de la tabla de activos
+        try {
+     //       Connection con = (Connection) new ConexionBD().conector();
+            String query = "DELETE FROM activos WHERE idactivo = ?";
+            PreparedStatement pps = con.prepareStatement(query);
+            pps.setInt(1, idactivo);
+            pps.executeUpdate();
+            pps.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error al desactivar el infante: " + e.getMessage());
+        }
     }
 
     private final Atributos a;
