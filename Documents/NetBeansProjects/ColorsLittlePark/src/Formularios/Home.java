@@ -86,16 +86,23 @@ public class Home extends javax.swing.JFrame {
         tblActivos = new javax.swing.JTable();
         fSButtonMD5 = new LIB.FSButtonMD();
         jLabel3 = new javax.swing.JLabel();
-        fSButtonMD6 = new LIB.FSButtonMD();
-        fSButtonMD1 = new LIB.FSButtonMD();
-        fSButtonMD2 = new LIB.FSButtonMD();
-        fSButtonMD4 = new LIB.FSButtonMD();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        fSButtonMD1 = new LIB.FSButtonMD();
+        fSButtonMD2 = new LIB.FSButtonMD();
+        fSButtonMD6 = new LIB.FSButtonMD();
+        fSButtonMD4 = new LIB.FSButtonMD();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 51, 51));
@@ -169,13 +176,16 @@ public class Home extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblActivos);
 
+        fSButtonMD5.setBackground(new java.awt.Color(255, 255, 255));
         fSButtonMD5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 1, true));
+        fSButtonMD5.setForeground(new java.awt.Color(0, 0, 0));
         fSButtonMD5.setText("Activar Infante");
         fSButtonMD5.setToolTipText("");
-        fSButtonMD5.setColorNormal(new java.awt.Color(0, 0, 102));
-        fSButtonMD5.setColorPressed(new java.awt.Color(0, 0, 255));
-        fSButtonMD5.setColorTextHover(new java.awt.Color(0, 255, 0));
+        fSButtonMD5.setColorNormal(new java.awt.Color(255, 255, 255));
+        fSButtonMD5.setColorPressed(new java.awt.Color(255, 255, 255));
+        fSButtonMD5.setColorTextHover(new java.awt.Color(255, 255, 255));
         fSButtonMD5.setContentAreaFilled(true);
+        fSButtonMD5.setFont(new java.awt.Font("Segoe", 0, 14)); // NOI18N
         fSButtonMD5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 fSButtonMD5MousePressed(evt);
@@ -205,8 +215,9 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
-                .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(24, 24, 24))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(fSButtonMD5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -229,26 +240,37 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(699, 65, 350, 590));
 
-        fSButtonMD6.setBackground(new java.awt.Color(255, 0, 0));
-        fSButtonMD6.setText("Generar Corte de Caja");
-        fSButtonMD6.setColorNormal(new java.awt.Color(255, 0, 0));
-        fSButtonMD6.setColorTextHover(new java.awt.Color(255, 0, 0));
-        fSButtonMD6.setContentAreaFilled(true);
-        fSButtonMD6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salir (2).png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                fSButtonMD6MousePressed(evt);
+                jButton1MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 227, 50));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 119, -1));
 
-        fSButtonMD1.setText("Tutores");
-        fSButtonMD1.setColorNormal(new java.awt.Color(255, 51, 51));
-        fSButtonMD1.setColorTextHover(new java.awt.Color(255, 51, 51));
+        jLabel4.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel4.setText("LOGOUT");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 580, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+
+        fSButtonMD1.setBackground(new java.awt.Color(255, 255, 255));
+        fSButtonMD1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        fSButtonMD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tutores (1).jpg"))); // NOI18N
+        fSButtonMD1.setColorNormal(new java.awt.Color(255, 255, 255));
+        fSButtonMD1.setColorPressed(new java.awt.Color(255, 255, 255));
+        fSButtonMD1.setColorTextHover(new java.awt.Color(255, 255, 255));
         fSButtonMD1.setContentAreaFilled(true);
         fSButtonMD1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -260,46 +282,135 @@ public class Home extends javax.swing.JFrame {
                 fSButtonMD1ActionPerformed(evt);
             }
         });
-        jPanel1.add(fSButtonMD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 130, 40));
 
-        fSButtonMD2.setText("Infantes");
-        fSButtonMD2.setColorNormal(new java.awt.Color(255, 51, 51));
-        fSButtonMD2.setColorTextHover(new java.awt.Color(255, 51, 51));
+        fSButtonMD2.setBackground(new java.awt.Color(255, 255, 255));
+        fSButtonMD2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        fSButtonMD2.setForeground(new java.awt.Color(0, 0, 0));
+        fSButtonMD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/WhatsApp Image 2024-06-01 at 6.04.08 PM (1).jpeg"))); // NOI18N
+        fSButtonMD2.setColorNormal(new java.awt.Color(255, 255, 255));
+        fSButtonMD2.setColorPressed(new java.awt.Color(255, 255, 255));
+        fSButtonMD2.setColorTextHover(new java.awt.Color(255, 255, 255));
         fSButtonMD2.setContentAreaFilled(true);
         fSButtonMD2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 fSButtonMD2MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 130, -1));
+        fSButtonMD2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fSButtonMD2ActionPerformed(evt);
+            }
+        });
 
-        fSButtonMD4.setText("Ventas");
-        fSButtonMD4.setColorNormal(new java.awt.Color(255, 51, 51));
-        fSButtonMD4.setColorTextHover(new java.awt.Color(255, 51, 51));
+        fSButtonMD6.setBackground(new java.awt.Color(255, 255, 255));
+        fSButtonMD6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        fSButtonMD6.setForeground(new java.awt.Color(0, 0, 0));
+        fSButtonMD6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cajaregistradora.jpg"))); // NOI18N
+        fSButtonMD6.setColorNormal(new java.awt.Color(255, 255, 255));
+        fSButtonMD6.setColorPressed(new java.awt.Color(255, 255, 255));
+        fSButtonMD6.setColorTextHover(new java.awt.Color(255, 255, 255));
+        fSButtonMD6.setContentAreaFilled(true);
+        fSButtonMD6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD6MousePressed(evt);
+            }
+        });
+
+        fSButtonMD4.setBackground(new java.awt.Color(255, 255, 255));
+        fSButtonMD4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        fSButtonMD4.setForeground(new java.awt.Color(0, 0, 0));
+        fSButtonMD4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ventasechas (1).png"))); // NOI18N
+        fSButtonMD4.setColorNormal(new java.awt.Color(255, 255, 255));
+        fSButtonMD4.setColorTextHover(new java.awt.Color(255, 255, 255));
         fSButtonMD4.setContentAreaFilled(true);
         fSButtonMD4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 fSButtonMD4MousePressed(evt);
             }
         });
-        jPanel1.add(fSButtonMD4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 130, -1));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salir (2).png"))); // NOI18N
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton1MousePressed(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        fSButtonMD4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                fSButtonMD4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 119, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("LOGOUT");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 590, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel1.setText("Tutores");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel5.setText("Ventas");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel6.setText("Infantes");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+        jLabel7.setText("Corte de caja");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(213, 213, 213)
+                .addComponent(jLabel5)
+                .addGap(97, 97, 97))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fSButtonMD2, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(fSButtonMD1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fSButtonMD4, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(fSButtonMD6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(74, 74, 74))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fSButtonMD1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fSButtonMD4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fSButtonMD6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(fSButtonMD2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 510, 340));
+
+        jPanel5.setBackground(new java.awt.Color(255, 51, 51));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -322,25 +433,11 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fSButtonMD1ActionPerformed
-
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
      InicioDeSesion iniciosesion = new InicioDeSesion();
      this.dispose();
      iniciosesion.setVisible(true);
     }//GEN-LAST:event_jButton1MousePressed
-
-    private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
-     Tutores tutores = new Tutores();
-     tutores.setVisible(true);
-    }//GEN-LAST:event_fSButtonMD1MousePressed
-
-    private void fSButtonMD2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD2MousePressed
-         Infantes infantes = new Infantes();
-     infantes.setVisible(true);
-    }//GEN-LAST:event_fSButtonMD2MousePressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -367,15 +464,37 @@ public class Home extends javax.swing.JFrame {
         ConsultarActivoss();
     }//GEN-LAST:event_jButton3MousePressed
 
+    private void fSButtonMD4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fSButtonMD4ActionPerformed
+
     private void fSButtonMD4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD4MousePressed
-           Ventas ventas = new Ventas();
-     ventas.setVisible(true);
+        Ventas ventas = new Ventas();
+        ventas.setVisible(true);
     }//GEN-LAST:event_fSButtonMD4MousePressed
 
     private void fSButtonMD6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD6MousePressed
-      CorteDeCaja cortecaja = new CorteDeCaja();
-      cortecaja.generarReporte();
+        CorteDeCaja cortecaja = new CorteDeCaja();
+        cortecaja.generarReporte();
     }//GEN-LAST:event_fSButtonMD6MousePressed
+
+    private void fSButtonMD2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fSButtonMD2ActionPerformed
+
+    private void fSButtonMD2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD2MousePressed
+        Infantes infantes = new Infantes();
+        infantes.setVisible(true);
+    }//GEN-LAST:event_fSButtonMD2MousePressed
+
+    private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fSButtonMD1ActionPerformed
+
+    private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
+        Tutores tutores = new Tutores();
+        tutores.setVisible(true);
+    }//GEN-LAST:event_fSButtonMD1MousePressed
 
     /**
      * @param args the command line arguments
@@ -401,12 +520,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblActivos;
     private javax.swing.JTextField txtBuscarActivos;
