@@ -16,6 +16,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,9 +46,9 @@ public class CorteDeCaja {
 
             // Cargar la fecha actual
             Date date = new Date();
-            fechaActual = new SimpleDateFormat("yyyy/MM/dd").format(date);
+            fechaActual = new SimpleDateFormat("yyyy-MM-dd").format(date);
             // Cambiar el formato de la fecha de / a _
-            String fechaNueva = fechaActual.replace("/", "_");
+            String fechaNueva = fechaActual.replace("-", "_");
 
             nombreArchivoPDFVenta = "Reporte_Ventas_" + turno + "_" + fechaNueva + ".pdf";
 
@@ -141,6 +142,7 @@ public class CorteDeCaja {
             try {
                 connection = con.conector();
                 pst = connection.prepareStatement(sql);
+                pst.setString(1, fechaActual); // Setear la fecha actual en el primer parámetro
                 rs = pst.executeQuery();
 
                 while (rs.next()) {
@@ -204,9 +206,9 @@ public class CorteDeCaja {
 
     private String obtenerConsultaSQL(String turno) {
         if (turno.equals("Matutino")) {
-            return "SELECT * FROM venta WHERE hora_entrada BETWEEN '08:00:00' AND '14:59:59'";
+            return "SELECT * FROM venta WHERE DATE(fecha) = ? AND hora_entrada BETWEEN '08:00:00' AND '14:59:59'";
         } else {
-            return "SELECT * FROM venta WHERE hora_entrada BETWEEN '15:00:00' AND '20:00:00'";
+            return "SELECT * FROM venta WHERE DATE(fecha) = ? AND hora_entrada BETWEEN '15:00:00' AND '20:00:00'";
         }
     }
 
@@ -215,5 +217,6 @@ public class CorteDeCaja {
         reporte.generarReporte();
     }
 }
+
 
 

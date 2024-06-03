@@ -20,7 +20,7 @@ public class ConexionBD {
    /* private static final*/ String bd="colorslittlepark";
     /* private static final*/ String driver="com.mysql.cj.jdbc.Driver";
     /* private static final*/ String user="root";
-    /* private static final*/ String pass="kiroxd23";
+    /* private static final*/ String pass="1234";
     /* private static final*/ String url="jdbc:mysql://localhost:3306/";
     
     public ConexionBD(){
