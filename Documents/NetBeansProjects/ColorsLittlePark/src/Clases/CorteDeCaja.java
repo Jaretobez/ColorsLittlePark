@@ -94,11 +94,11 @@ public class CorteDeCaja {
             doc.add(ventasTitulo);
 
             // Tabla de ventas
-            PdfPTable tablaVentas = new PdfPTable(8);
+            PdfPTable tablaVentas = new PdfPTable(9);
             tablaVentas.setWidthPercentage(100);
             tablaVentas.getDefaultCell().setBorder(0); // Quitar bordes
             // Tamaño de las celdas
-            float[] columnaVentas = new float[]{10f, 10f, 10f, 10f, 10f, 10f, 10f, 10f};
+            float[] columnaVentas = new float[]{10f, 10f, 10f, 10f, 10f, 10f, 10f, 10f, 10f};
             tablaVentas.setWidths(columnaVentas);
             tablaVentas.setHorizontalAlignment(Element.ALIGN_LEFT);
             PdfPCell venta1 = new PdfPCell(new Phrase("Folio", negrita));
@@ -108,7 +108,8 @@ public class CorteDeCaja {
             PdfPCell venta5 = new PdfPCell(new Phrase("Fecha", negrita));
             PdfPCell venta6 = new PdfPCell(new Phrase("Hora Entrada", negrita));
             PdfPCell venta7 = new PdfPCell(new Phrase("Hora Salida", negrita));
-            PdfPCell venta8 = new PdfPCell(new Phrase("Infante", negrita));
+             PdfPCell venta8 = new PdfPCell(new Phrase("ID infante", negrita));
+            PdfPCell venta9 = new PdfPCell(new Phrase("Infante", negrita));
             // Quitar bordes
             venta1.setBorder(0);
             venta2.setBorder(0);
@@ -118,6 +119,7 @@ public class CorteDeCaja {
             venta6.setBorder(0);
             venta7.setBorder(0);
             venta8.setBorder(0);
+            venta9.setBorder(0);
             // Agregar color al encabezado de ventas
             venta1.setBackgroundColor(BaseColor.LIGHT_GRAY);
             venta2.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -127,6 +129,7 @@ public class CorteDeCaja {
             venta6.setBackgroundColor(BaseColor.LIGHT_GRAY);
             venta7.setBackgroundColor(BaseColor.LIGHT_GRAY);
             venta8.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            venta9.setBackgroundColor(BaseColor.LIGHT_GRAY);
             // Agregar celdas a la tabla
             tablaVentas.addCell(venta1);
             tablaVentas.addCell(venta2);
@@ -136,6 +139,7 @@ public class CorteDeCaja {
             tablaVentas.addCell(venta6);
             tablaVentas.addCell(venta7);
             tablaVentas.addCell(venta8);
+            tablaVentas.addCell(venta9);
 
             // Obtener los datos de ventas del turno especificado
             String sql = obtenerConsultaSQL(turno);
@@ -153,6 +157,7 @@ public class CorteDeCaja {
                     String fecha2 = rs.getString("fecha");
                     String horaEntrada = rs.getString("hora_entrada");
                     String horaSalida = rs.getString("hora_salida");
+                    String idInfante = rs.getString("fk_idInfante");
                     String Infante = rs.getString("nom_infante");
 
                     tablaVentas.addCell(folio);
@@ -162,6 +167,7 @@ public class CorteDeCaja {
                     tablaVentas.addCell(fecha2);                  
                     tablaVentas.addCell(horaEntrada);
                     tablaVentas.addCell(horaSalida);
+                    tablaVentas.addCell(idInfante);
                     tablaVentas.addCell(Infante);
                 }
             } catch (SQLException e) {
@@ -204,6 +210,7 @@ public class CorteDeCaja {
         }
     }
 
+    
     private String obtenerConsultaSQL(String turno) {
         if (turno.equals("Matutino")) {
             return "SELECT * FROM venta WHERE DATE(fecha) = ? AND hora_entrada BETWEEN '08:00:00' AND '14:59:59'";

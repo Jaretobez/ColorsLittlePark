@@ -6,6 +6,7 @@ package Formularios;
 
 import Clases.Autenticacion;
 import Clases.ConexionBD;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class InicioDeSesion extends javax.swing.JFrame {
 
@@ -151,6 +152,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+         FlatLightLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InicioDeSesion().setVisible(true);

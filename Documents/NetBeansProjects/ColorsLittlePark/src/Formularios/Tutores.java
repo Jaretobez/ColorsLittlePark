@@ -51,11 +51,16 @@ public class Tutores extends javax.swing.JFrame {
         String nombre = txtNomTutor.getText();
         String apellido = txtApeTutor.getText();
         String num = String.valueOf(tel);
+        
+        if (tel.length() == 10 && tel.matches("\\d+")) {
         // Agregar a la base de datos
         tutor.RegistrarTutor(tel, nombre, apellido);
         // Agregar a la tabla
         MostrarTabla();
         dtm.addRow(new Object[]{tel, nombre, apellido});
+        }else{
+        JOptionPane.showMessageDialog(null, "El número de teléfono es invalido", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     void Eliminar() {

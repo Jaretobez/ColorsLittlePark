@@ -39,17 +39,13 @@ public class Ventas extends javax.swing.JFrame {
         public void MostrarTabla() {
         MostrarTabla mostrartabla = new MostrarTabla();
         DefaultTableModel modeloActivos = mostrartabla.MostrarActivos();
-        tblActivos.setModel(modeloActivos);
+        tblActivosVentas.setModel(modeloActivos);
         DefaultTableModel modeloVentas = mostrartabla.MostrarVentas();
         tblVentas.setModel(modeloVentas);
     }
-        
-        // Configurar los listeners para las tablas
-
-
 
     private void initializeTables() {
-        addTableSelectionListener(tblActivos);
+        addTableSelectionListener(tblActivosVentas);
     }
 
  private void addTableSelectionListener(JTable table) {
@@ -59,10 +55,10 @@ public class Ventas extends javax.swing.JFrame {
                     int selectedRow = table.getSelectedRow();
                     DefaultTableModel dtm = (DefaultTableModel) table.getModel();
                     if (selectedRow >= 0) {
-                        if (table == tblActivos) {
+                        if (table == tblActivosVentas) {
                             try {
                    txtIdInfante.setText(dtm.getValueAt(selectedRow, 1).toString());
-                   txtHREntrada.setText(dtm.getValueAt(selectedRow, 3).toString());                               
+                   txtHREntrada.setText(dtm.getValueAt(selectedRow, 4).toString());                               
                             } catch (NumberFormatException ex) {
                                 System.out.println("Error al convertir los datos de la tabla: " + ex.getMessage());
                             } catch (Exception ex) {
@@ -79,14 +75,15 @@ public class Ventas extends javax.swing.JFrame {
 private void RegistrarVenta() {
    String tipo_pago = jComboBox1.getSelectedItem().toString();
 
-    DefaultTableModel dtm2 = (DefaultTableModel) tblActivos.getModel();
-    int selectedRow = tblActivos.getSelectedRow();
+    int selectedRow = tblActivosVentas.getSelectedRow();
     
     if (selectedRow >= 0) {
         try {
+                DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
             String idInfante = txtIdInfante.getText();
-
             String hrEntrada = txtHREntrada.getText();
+            Object nominf = dtm.getValueAt(selectedRow, 2); 
+            String nom_infante = nominf.toString();
             
             // Convertir idInfante a int
             int idinf = Integer.parseInt(idInfante);
@@ -99,7 +96,7 @@ private void RegistrarVenta() {
             Time horaSalida = Time.valueOf(horaActual);
             
             // Llamar al método para agregar la venta
-            venta.AgregarVenta(tipo_pago, idinf, horaEntrada, horaSalida);
+            venta.AgregarVenta(tipo_pago, idinf, horaEntrada, horaSalida, nom_infante);
            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
@@ -114,7 +111,7 @@ private void RegistrarVenta() {
 
     public void ConsultarActivosve() {
     String buscar = txtBuscarAct.getText();
-    DefaultTableModel dtm = (DefaultTableModel) tblActivos.getModel();
+    DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
     // Consultar tutor según el dato proporcionado
     List<String[]> activoInfo = activos.ConsultarActivos(buscar);  
     // Limpiar la tabla antes de mostrar los resultados
@@ -123,14 +120,14 @@ private void RegistrarVenta() {
     if (!activoInfo.isEmpty()) {
         // Agregar los datos obtenidos a la tabla
         for (String[] info : activoInfo) {
-            Object[] rowData = new Object[]{info[0], info[1], info[2]}; 
+            Object[] rowData = new Object[]{info[0], info[1], info[2], info[3], info[4]}; 
             dtm.addRow(rowData);
         } 
            
     } else {
         JOptionPane.showMessageDialog(null, "No se encontró ningún tutor con el dato especificado.");
     }
-    tblActivos.setModel(dtm);
+    tblActivosVentas.setModel(dtm);
 }
 
 
@@ -154,7 +151,7 @@ private void RegistrarVenta() {
         txtIdInfante = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblActivos = new javax.swing.JTable();
+        tblActivosVentas = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txtBuscarAct = new javax.swing.JTextField();
@@ -222,8 +219,8 @@ private void RegistrarVenta() {
 
         jLabel3.setText("ID infante");
 
-        tblActivos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
-        tblActivos.setModel(new javax.swing.table.DefaultTableModel(
+        tblActivosVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        tblActivosVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -234,7 +231,9 @@ private void RegistrarVenta() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblActivos);
+        tblActivosVentas.setFillsViewportHeight(true);
+        tblActivosVentas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblActivosVentas);
 
         jLabel4.setText("Activos");
 
@@ -407,7 +406,7 @@ private void RegistrarVenta() {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tblActivos;
+    private javax.swing.JTable tblActivosVentas;
     private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtBuscarAct;
     private javax.swing.JPanel txtBuscarActivos;

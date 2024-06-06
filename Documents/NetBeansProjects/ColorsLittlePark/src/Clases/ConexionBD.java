@@ -34,7 +34,7 @@ public class ConexionBD {
             Class.forName(driver);
             // Nos conectamos a la bd
             con= (Connection) DriverManager.getConnection(url+bd, user, pass);
-             System.out.println("Conexion establecida a" + bd);
+        //     System.out.println("Conexion establecida a" + bd);
         }
         catch (ClassNotFoundException | SQLException e){
             System.out.println("Error de conexion" + bd);
@@ -53,9 +53,9 @@ public class ConexionBD {
     }
 
         public PreparedStatement prepareStatement(String sql) throws SQLException {
-        if (con == null) {
+       /* if (con == null) {
             throw new SQLException("La conexión no está establecida");
-        }
+        }*/
         return con.prepareStatement(sql);
     }
 

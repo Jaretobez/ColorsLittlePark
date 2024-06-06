@@ -8,9 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class Infante {
     ConexionBD con = new ConexionBD();
@@ -26,9 +27,9 @@ try {
     do {
         id = generarID();
         idExiste = VerificaId(id);
-        if (idExiste) {
+ /*       if (idExiste) {
             System.out.println("El ID de Infante ya existe en la base de datos. Generando un nuevo ID...");
-        }
+        }*/
     } while (idExiste); 
     // Una vez que se encuentra un ID único, asignarlo al infante
 } catch (RuntimeException e) {
@@ -47,9 +48,9 @@ try {
         } catch (SQLException e) {
             System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
         }
-        if (!error) {
+      /*  if (!error) {
             System.out.println("Datos guardados correctamente.");
-        }
+        }*/
     }
   
     //funcion Para modificar infante
@@ -67,12 +68,12 @@ try {
             pps.setString(2, newape);
             pps.setInt(3, newedad);
             pps.setInt(4, id);
-            int rowsAffected = pps.executeUpdate();
+    /*        int rowsAffected = pps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Datos del infante actualizados correctamente.");
             } else {
                 System.out.println("Error: No se pudo actualizar los datos del infante.");
-            }
+            }*/
         } catch (SQLException e) {
             System.out.println("Error al actualizar los datos en la base de datos: " + e.getMessage());
         }
@@ -86,15 +87,15 @@ try {
             try (PreparedStatement deleteinfanteStatement = con.prepareStatement(deleteEquipoQuery)) {
                 deleteinfanteStatement.setInt(1, id);
                 int rowsAffected = deleteinfanteStatement.executeUpdate();
-
                 if (rowsAffected > 0) {
-                    System.out.println("Infante y registros relacionados eliminados con éxito.");
+             //       System.out.println("Infante y registros relacionados eliminados con éxito.");
                 } else {
-                    System.out.println("No se encontró un infante con el ID especificado.");
+                    JOptionPane.showMessageDialog(null, "No se encontró el infante con el ID especificado.");
+                   // System.out.println("No se encontró el infante con el ID especificado.");
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al eliminar el infante y registros relacionados en la base de datos.");
+            JOptionPane.showMessageDialog(null, "Error al eliminar el infante.");
         }
     }
  //funcion Para consultar infante   
@@ -122,7 +123,7 @@ public List<String[]> ConsultarInfante(String valorBusqueda) {
    
                     resultados.add(infanteInfo);
                     // Imprimir cada registro encontrado
-                    System.out.println("Registro encontrado: " + Arrays.toString(infanteInfo));
+        //            System.out.println("Registro encontrado: " + Arrays.toString(infanteInfo));
                 }
                 // Si encontramos resultados, dejamos de buscar
                 if (!resultados.isEmpty()) {
@@ -130,10 +131,9 @@ public List<String[]> ConsultarInfante(String valorBusqueda) {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al consultar los datos en la base de datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos en la base de datos: " + e.getMessage());
         }
     }
-
     return resultados;
 }
 
@@ -145,9 +145,7 @@ public List<String[]> ConsultarInfante(String valorBusqueda) {
             String query = "SELECT * FROM infantes WHERE ID_infante = ?";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setInt(1, idinfante);
-
             ResultSet rs = pps.executeQuery();
-
             return rs.next();  // Devuelve true si hay un resultado, lo que significa que el ID de infante ya existe
         } catch (SQLException e) {
             return false;  // Manejar la excepción de alguna manera adecuada para tu aplicación

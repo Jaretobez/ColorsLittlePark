@@ -28,7 +28,16 @@ public class MostrarTabla {
         String[] nombresColumnas = {"num_telefono", "nombre", "apellido"};
         String[] registros = new String[3];
 
-        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
+        DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas){
+                             @Override
+     public boolean isCellEditable(int filas, int columnas){
+     if (columnas == 3){
+         return true;
+     }else{
+     return false;
+     }
+     }
+        };
 
         String sql = "SELECT * FROM tutores";
 
@@ -49,28 +58,22 @@ public class MostrarTabla {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar");
         }
-        /*      finally
-        {
-            try
-            {
-                if (rs != null) rs.close();
-                
-                if (pst != null) pst.close();
-                
-                if (con != null) con.close();
-            }
-            catch(SQLException e)
-            {
-                JOptionPane.showMessageDialog(null,e);
-            }
-        }*/
         return modelo;
     }
 
     public DefaultTableModel mostrarInfantes() {
         String[] nomColumnas = {"ID_infante", "nombre", "apellido", "edad", "tutor"};
         String[] registrosinf = new String[5];
-        DefaultTableModel modeloinf = new DefaultTableModel(null, nomColumnas);
+        DefaultTableModel modeloinf = new DefaultTableModel(null, nomColumnas){
+                     @Override
+     public boolean isCellEditable(int filas, int columnas){
+     if (columnas == 5){
+         return true;
+     }else{
+     return false;
+     }
+     }
+        };
         String sqlinf = "SELECT * FROM infantes";
 
         try {
@@ -93,9 +96,18 @@ public class MostrarTabla {
     }
 
     public DefaultTableModel MostrarActivos() {
-        String[] nomColumnas = {"idactivo", "infante", "fk_num_telefono_act", "hora_entrada"};
-        String[] registros = new String[4];
-        DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas);
+        String[] nomColumnas = {"idactivo", "idinfante", "nombre", "Telefono", "hora de entrada"};
+        String[] registros = new String[5];
+        DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas){
+             @Override
+     public boolean isCellEditable(int filas, int columnas){
+     if (columnas == 5){
+         return true;
+     }else{
+     return false;
+     }
+     }
+        };
         String sql = "SELECT * FROM activos";
         try {
             connection = con.conector();
@@ -104,8 +116,9 @@ public class MostrarTabla {
             while (rs.next()) {
                 registros[0] = rs.getString("idactivo");
                 registros[1] = rs.getString("infante");
-                registros[2] = rs.getString("fk_num_telefono_act");
-                registros[3] = rs.getString("hora_entrada");
+                registros[2] = rs.getString("nomb_infante");
+                registros[3] = rs.getString("fk_num_telefono_act");
+                registros[4] = rs.getString("hora_entrada");
                 modelo.addRow(registros);
             }
         } catch (SQLException e) {
@@ -116,9 +129,18 @@ public class MostrarTabla {
     
     
         public DefaultTableModel MostrarVentas() {
-        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "hora_entrada", "hora_salida", "nom_infante"};
-        String[] registros = new String[8];
-        DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas);
+        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "hora_entrada", "hora_salida", "IDinfante", "nom_infante"};
+        String[] registros = new String[9];
+        DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas){
+                             @Override
+     public boolean isCellEditable(int filas, int columnas){
+     if (columnas == 9){
+         return true;
+     }else{
+     return false;
+     }
+     }
+        };
         String sql = "SELECT * FROM venta";
         try {
             connection = con.conector();
@@ -132,7 +154,8 @@ public class MostrarTabla {
                 registros[4] = rs.getString("fecha");
                 registros[5] = rs.getString("hora_entrada");
                 registros[6] = rs.getString("hora_salida");
-                registros[7] = rs.getString("nom_infante");
+                registros[7] = rs.getString("fk_idInfante");
+                registros[8] = rs.getString("nom_infante");
                 modelo.addRow(registros);
             }
         } catch (SQLException e) {

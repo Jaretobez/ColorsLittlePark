@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class Activos {
 
@@ -23,9 +24,9 @@ public class Activos {
     }
 
     //Funcion para activar al infante
-    public void Activar(int id_infante, String num_tutor, String hora_entrada) {
+    public void Activar(int id_infante, String num_tutor, String hora_entrada, String nombre_infante) {
         if (VerificaInfanteEnActivos(id_infante)) {
-            System.out.println("El infante con id " + id_infante + " ya está activo.");
+            JOptionPane.showMessageDialog(null, "El infante con id " + id_infante + " ya está activo.");
             return; // Salir del método para evitar duplicados
         }
         int id = 0;
@@ -35,30 +36,26 @@ public class Activos {
             do {
                 id = generarIdActivo();
                 idverifica = VerificaIdActivo(id);
-                if (idverifica) {
-                    System.out.println("El id del activo ya existe en la base de datos. Generando un nuevo id...");
-                }
             } while (idverifica);
-
             // Una vez que se encuentra un ID único, asignarlo al infante
             a.setIdActivo(id);
         } catch (RuntimeException e) {
             System.out.println("Error: " + e.getMessage());
             error = true;
         }
-
         if (!error) {
             try {
-                String query = "INSERT INTO activos(idactivo, infante, fk_num_telefono_act, hora_entrada) VALUES(?, ?, ?, ?)";
+                String query = "INSERT INTO activos(idactivo, infante, fk_num_telefono_act, hora_entrada, nomb_infante) VALUES(?, ?, ?, ?, ?)";
                 PreparedStatement pps = con.prepareStatement(query);
                 pps.setInt(1, id);
                 pps.setInt(2, id_infante);
                 pps.setString(3, num_tutor);
                 pps.setString(4, hora_entrada);
+                pps.setString(5, nombre_infante);
                 pps.executeUpdate();
-                System.out.println("Datos guardados correctamente.");
+            //     JOptionPane.showMessageDialog(null, "Datos guardados correctamente.");
             } catch (SQLException e) {
-                System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al guardar los datos en la base de datos:  " + e.getMessage());
             }
         }
     }
@@ -68,23 +65,21 @@ public class Activos {
     String[] queries = {
         "SELECT * FROM activos WHERE idactivo = ?",
         "SELECT * FROM activos WHERE infante = ?",
-        "SELECT * FROM activos WHERE fk_num_telefono_act = ?"
+        "SELECT * FROM activos WHERE fk_num_telefono_act = ?",
+        "SELECT * FROM activos WHERE nomb_infante = ?"
     };
-
     for (String query : queries) {
         try (PreparedStatement pps = con.prepareStatement(query)) {
              pps.setString(1, valorBusqueda);
              try (ResultSet rs = pps.executeQuery()) {
                 while (rs.next()) {
-                    String[] infanteInfo = new String[4];
+                    String[] infanteInfo = new String[5];
                     infanteInfo[0] = rs.getString("idactivo");
                     infanteInfo[1] = rs.getString("infante");
-                    infanteInfo[2] = rs.getString("fk_num_telefono_act");
-                    infanteInfo[3] = rs.getString("hora_entrada");
-   
+                    infanteInfo[2] = rs.getString("nomb_infante");
+                    infanteInfo[3] = rs.getString("fk_num_telefono_act");
+                    infanteInfo[4] = rs.getString("hora_entrada");   
                     resultados.add(infanteInfo);
-                    // Imprimir cada registro encontrado
-                    System.out.println("Registro encontrado: " + Arrays.toString(infanteInfo));
                 }
                 // Si encontramos resultados, dejamos de buscar
                 if (!resultados.isEmpty()) {
@@ -92,10 +87,9 @@ public class Activos {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al consultar los datos en la base de datos: " + e.getMessage());
+          JOptionPane.showMessageDialog(null, "Error al guardar los datos en la base de datos:  " + e.getMessage());
         }
     }
-
     return resultados;
 }
 
@@ -134,9 +128,8 @@ public class Activos {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al verificar si el infante ya está en activos: " + e.getMessage());
+   JOptionPane.showMessageDialog(null, "Error al verificar si el infante ya está en activos: " + e.getMessage());
         }
-
         return existe;
     }
     
@@ -152,7 +145,7 @@ public class Activos {
             pps.close();
             con.close();
         } catch (SQLException e) {
-            System.out.println("Error al desactivar el infante: " + e.getMessage());
+      JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + e.getMessage());
         }
     }
 

@@ -58,11 +58,13 @@ public class Activar extends javax.swing.JFrame {
                     if (selectedRow >= 0) {
                         if (table == tblInfantes) {
                             try {
-                                Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+                                Object idInfanteObj = dtm.getValueAt(selectedRow, 0); 
+                                Object nombre_infanteObj = dtm.getValueAt(selectedRow, 1);
                                 Object numTelefonoObj = dtm.getValueAt(selectedRow, 4); // Assuming phone number is at column 4
                                 
                                 int idInfante = Integer.parseInt(idInfanteObj.toString());
-                                String numTelefono = numTelefonoObj.toString();
+                                String numTelefono = nombre_infanteObj.toString();
+                                String nominfante = numTelefonoObj.toString();
 
                             } catch (NumberFormatException ex) {
                                 System.out.println("Error al convertir los datos de la tabla: " + ex.getMessage());
@@ -82,10 +84,12 @@ private void activarInfante() {
     if (selectedRow >= 0) {
         try {
             Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+            Object nombre_infanteObj = dtm.getValueAt(selectedRow, 1);
             Object numTelefonoObj = dtm.getValueAt(selectedRow, 4); // Assuming phone number is at column 4
             
             int idInfante = Integer.parseInt(idInfanteObj.toString());
             String numTelefono = numTelefonoObj.toString();
+            String nombre_infante = nombre_infanteObj.toString();
 
             // Obtener la hora actual
             LocalTime horaEntrada = LocalTime.now();
@@ -95,7 +99,7 @@ private void activarInfante() {
             if (activos.VerificaInfanteEnActivos(idInfante)) {
                 JOptionPane.showMessageDialog(null, "El infante con ID " + idInfante + " ya está activo.");
             } else {
-                activos.Activar(idInfante, numTelefono, horaEntradaStr);
+                activos.Activar(idInfante, numTelefono, horaEntradaStr, nombre_infante);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
@@ -119,7 +123,7 @@ private void activarInfante() {
     if (!activoInfo.isEmpty()) {
         // Agregar los datos obtenidos a la tabla
         for (String[] info : activoInfo) {
-            Object[] rowData = new Object[]{info[0], info[1], info[2], info[3]}; 
+            Object[] rowData = new Object[]{info[0], info[1], info[2], info[3], info[4]}; 
             dtm.addRow(rowData);
         } 
            
@@ -221,6 +225,9 @@ private void activarInfante() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblInfantes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblInfantes.setFillsViewportHeight(true);
+        tblInfantes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblInfantes);
 
         txtBuscarInfante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
@@ -262,6 +269,8 @@ private void activarInfante() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblActivos2.setFillsViewportHeight(true);
+        tblActivos2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblActivos2);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busquda (2).png"))); // NOI18N
@@ -360,7 +369,7 @@ private void activarInfante() {
                     .addComponent(fSButtonMD3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(39, 39, 39))
+                .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +417,7 @@ private void activarInfante() {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(0, 0, 875, 597);
+        setBounds(0, 0, 995, 597);
     }// </editor-fold>//GEN-END:initComponents
 
     private void fSButtonMD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fSButtonMD1ActionPerformed

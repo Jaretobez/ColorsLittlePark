@@ -18,7 +18,7 @@ public class Venta {
     }
     
     //Funcion para agregar registro de venta en la tabla ventas
-    public void AgregarVenta(String tipo_pago, int ID_infante, Time hora_entrada, Time hora_salida) {
+    public void AgregarVenta(String tipo_pago, int ID_infante, Time hora_entrada, Time hora_salida, String nom_infante) {
         int folio = 0;
         boolean error = false;
 
@@ -43,12 +43,12 @@ public class Venta {
         int tiempo = calcularTiempoTotal(hora_entrada, hora_salida);
         double monto_total = calcularMontoTotal(tiempo);
 
-        String nombreInfante = obtenerNombreInfante(ID_infante);
+     /*   String nombreInfante = obtenerNombreInfante(ID_infante);
 
         if (nombreInfante == null) {
             System.out.println("Error al obtener el nombre del infante.");
             return;
-        }
+        }*/
 
         try {
             String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, hora_entrada, hora_salida, nom_infante) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -60,12 +60,11 @@ public class Venta {
             pps.setTimestamp(5, fecha);
             pps.setTime(6, hora_entrada);
             pps.setTime(7, hora_salida);
-            pps.setString(8, nombreInfante);
+            pps.setString(8, nom_infante);
             pps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
         }
-
         if (!error) {
             System.out.println("Datos guardados correctamente.");
         }
@@ -135,7 +134,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
     }
         
         
-            private String obtenerNombreInfante(int ID_infante) {
+ /*           private String obtenerNombreInfante(int ID_infante) {
         String nombreInfante = null;
         try {
             String query = "SELECT nombre FROM infantes WHERE ID_infante = ?";
@@ -149,7 +148,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
             System.out.println("Error al obtener el nombre del infante: " + e.getMessage());
         }
         return nombreInfante;
-    }
+    }*/
 
     private final Atributos a;
      

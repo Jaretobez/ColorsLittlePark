@@ -38,7 +38,7 @@ public void verificarCredenciales( JTextField usuario, JPasswordField contrasena
     rs = ps.executeQuery();
     
     if (rs.next ()) {
-     JOptionPane.showMessageDialog(null, "El usuario es correcto");
+    // JOptionPane.showMessageDialog(null, "El usuario es correcto");
      Home objetoMenu = new Home();
      objetoMenu.setVisible(true);
     ((JFrame) usuario.getTopLevelAncestor()).dispose();
