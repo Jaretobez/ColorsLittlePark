@@ -9,9 +9,15 @@ import Clases.Activos;
 import Clases.ConexionBD;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Jared
@@ -20,6 +26,11 @@ public class Home extends javax.swing.JFrame {
         ConexionBD con = new ConexionBD();
         DefaultTableModel dtm=new DefaultTableModel();
         Activos activos = new Activos();
+    Connection connection = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    private String fechaActual = "";
+    private JLabel ventasDelDiaLabel;
     /**
      * Creates new form Home
      */
@@ -28,6 +39,7 @@ public class Home extends javax.swing.JFrame {
         InitStyles();
         this.setLocationRelativeTo(null);
          MostrarTabla();
+         actualizarJLabel(ventasDelDiaLabel);
       //  initializeTables();
 
     }
@@ -66,6 +78,32 @@ public class Home extends javax.swing.JFrame {
     }
     tblActivos.setModel(dtm);
 }
+    
+    
+            public int contarVentasDelDia() {
+    Date date = new Date();
+    fechaActual = new SimpleDateFormat("yyyy/MM/dd").format(date);
+    int conteo = 0;
+    String sql = "SELECT COUNT(*) FROM venta WHERE fecha = ?";
+    try {
+        connection = con.conector();
+        pst = connection.prepareStatement(sql);
+        pst.setString(1, fechaActual);
+        rs = pst.executeQuery();
+
+        if (rs.next()) {
+            conteo = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al conectar: " + e.getMessage());
+    } 
+    return conteo;
+}
+            
+         public void actualizarJLabel(JLabel label) {
+        int ventasHoy = contarVentasDelDia();
+        jLabel8.setText("Ventas: " + ventasHoy);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,6 +134,8 @@ public class Home extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         fSButtonMD4 = new LIB.FSButtonMD();
         jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -351,6 +391,10 @@ public class Home extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         jLabel5.setText("Ventas");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 130, 60));
+
+        jLabel9.setText("Ventas del dia:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -475,6 +519,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

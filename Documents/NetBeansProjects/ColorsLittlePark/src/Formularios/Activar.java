@@ -166,7 +166,6 @@ private void activarInfante() {
                 int idActivo = Integer.parseInt(idInfanteObj.toString());
 
                     activos.Desactivar(idActivo);
-                    JOptionPane.showMessageDialog(null, "Infante desactivado correctamente.");
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());

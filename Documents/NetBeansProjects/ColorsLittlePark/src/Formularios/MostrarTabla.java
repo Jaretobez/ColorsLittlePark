@@ -129,12 +129,12 @@ public class MostrarTabla {
     
     
         public DefaultTableModel MostrarVentas() {
-        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "hora_entrada", "hora_salida", "IDinfante", "nom_infante"};
-        String[] registros = new String[9];
+        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "hora_entrada", "hora_salida", "nom_infante"};
+        String[] registros = new String[8];
         DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas){
                              @Override
      public boolean isCellEditable(int filas, int columnas){
-     if (columnas == 9){
+     if (columnas == 8){
          return true;
      }else{
      return false;
@@ -154,8 +154,7 @@ public class MostrarTabla {
                 registros[4] = rs.getString("fecha");
                 registros[5] = rs.getString("hora_entrada");
                 registros[6] = rs.getString("hora_salida");
-                registros[7] = rs.getString("fk_idInfante");
-                registros[8] = rs.getString("nom_infante");
+                registros[7] = rs.getString("nom_infante");
                 modelo.addRow(registros);
             }
         } catch (SQLException e) {

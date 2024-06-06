@@ -9,13 +9,14 @@ import Clases.ConexionBD;
 import Clases.Venta;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.time.LocalTime;
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Time;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+
 
 /**
  *
@@ -26,6 +27,7 @@ public class Ventas extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel();
     Venta venta = new Venta();
     Activos activos = new Activos();
+
     /**
      * Creates new form Ventas
      */
@@ -80,14 +82,17 @@ private void RegistrarVenta() {
     if (selectedRow >= 0) {
         try {
                 DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
-            String idInfante = txtIdInfante.getText();
-            String hrEntrada = txtHREntrada.getText();
-            Object nominf = dtm.getValueAt(selectedRow, 2); 
-            String nom_infante = nominf.toString();
+                Object idactivoObj = dtm.getValueAt(selectedRow, 0);
+                String idactivo = idactivoObj.toString();
+                Object idInfante = dtm.getValueAt(selectedRow, 1);
+                String idinf = idInfante.toString();
+                String hrEntrada = txtHREntrada.getText();
+                Object nominf = dtm.getValueAt(selectedRow, 2); 
+                String nom_infante = nominf.toString();
             
             // Convertir idInfante a int
-            int idinf = Integer.parseInt(idInfante);
-            
+            int id_inf = Integer.parseInt(idinf);
+            int id_act = Integer.parseInt(idactivo);
             // Convertir hora_entrada a Time
             Time horaEntrada = Time.valueOf(hrEntrada);
 
@@ -96,7 +101,7 @@ private void RegistrarVenta() {
             Time horaSalida = Time.valueOf(horaActual);
             
             // Llamar al método para agregar la venta
-            venta.AgregarVenta(tipo_pago, idinf, horaEntrada, horaSalida, nom_infante);
+            venta.AgregarVenta(tipo_pago, horaEntrada, horaSalida, nom_infante, id_act);
            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
@@ -129,6 +134,27 @@ private void RegistrarVenta() {
     }
     tblActivosVentas.setModel(dtm);
 }
+
+    
+        private void desactivarInfante() {
+        DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
+        int selectedRow = tblActivosVentas.getSelectedRow();
+        if (selectedRow >= 0) {
+            try {
+                Object idActObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+                int idActivo = Integer.parseInt(idActObj.toString());
+                    activos.Desactivar(idActivo);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para desactivar.");
+        }
+    }
+       
+
 
 
 
@@ -370,6 +396,7 @@ private void RegistrarVenta() {
 
     private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
         RegistrarVenta();
+      //  desactivarInfante();
         MostrarTabla();
     }//GEN-LAST:event_fSButtonMD1MousePressed
 

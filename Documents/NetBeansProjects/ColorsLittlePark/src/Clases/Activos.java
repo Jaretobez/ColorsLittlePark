@@ -76,9 +76,9 @@ public class Activos {
                     String[] infanteInfo = new String[5];
                     infanteInfo[0] = rs.getString("idactivo");
                     infanteInfo[1] = rs.getString("infante");
-                    infanteInfo[2] = rs.getString("nomb_infante");
-                    infanteInfo[3] = rs.getString("fk_num_telefono_act");
-                    infanteInfo[4] = rs.getString("hora_entrada");   
+                    infanteInfo[2] = rs.getString("fk_num_telefono_act");
+                    infanteInfo[3] = rs.getString("hora_entrada");
+                    infanteInfo[4] = rs.getString("nomb_infante");
                     resultados.add(infanteInfo);
                 }
                 // Si encontramos resultados, dejamos de buscar

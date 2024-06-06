@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,15 +14,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Venta {
     ConexionBD con = new ConexionBD();
+    Activos activos = new Activos();
     public Venta() {
         a = new Atributos();
     }
     
     //Funcion para agregar registro de venta en la tabla ventas
-    public void AgregarVenta(String tipo_pago, int ID_infante, Time hora_entrada, Time hora_salida, String nom_infante) {
+    public void AgregarVenta(String tipo_pago, Time hora_entrada, Time hora_salida, String nom_infante, int idactivo) throws IOException {
         int folio = 0;
         boolean error = false;
-
         try {
             boolean folioexist;
             do {
@@ -31,25 +32,15 @@ public class Venta {
                     System.out.println("El folio de la venta ya existe en la base de datos. Generando un nuevo folio...");
                 }
             } while (folioexist);
-
             // Una vez que se encuentra un ID único, asignarlo al infante
             a.setFolio(folio);
         } catch (RuntimeException e) {
             System.out.println("Error: " + e.getMessage());
             error = true;
         }
-
         Timestamp fecha = new Timestamp(System.currentTimeMillis());
         int tiempo = calcularTiempoTotal(hora_entrada, hora_salida);
         double monto_total = calcularMontoTotal(tiempo);
-
-     /*   String nombreInfante = obtenerNombreInfante(ID_infante);
-
-        if (nombreInfante == null) {
-            System.out.println("Error al obtener el nombre del infante.");
-            return;
-        }*/
-
         try {
             String query = "INSERT INTO venta(folio, tiempo, tipo_pago, monto_total, fecha, hora_entrada, hora_salida, nom_infante) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pps = con.prepareStatement(query);
@@ -60,13 +51,16 @@ public class Venta {
             pps.setTimestamp(5, fecha);
             pps.setTime(6, hora_entrada);
             pps.setTime(7, hora_salida);
-            pps.setString(8, nom_infante);
+            pps.setString(8,  nom_infante);
             pps.executeUpdate();
+            
+
         } catch (SQLException e) {
             System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
         }
         if (!error) {
             System.out.println("Datos guardados correctamente.");
+                        activos.Desactivar(idactivo);
         }
     }
 
@@ -84,9 +78,7 @@ public class Venta {
             String query = "SELECT * FROM ventas WHERE folio = ?";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setInt(1, idinfante);
-
             ResultSet rs = pps.executeQuery();
-
             return rs.next();  // Devuelve true si hay un resultado, lo que significa que el ID de infante ya existe
         } catch (SQLException e) {
             return false;  // Manejar la excepción de alguna manera adecuada para tu aplicación
@@ -108,9 +100,7 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
     }
     
       //Funcion para calcular el monto total en base al tiempo total
-        public static double calcularMontoTotal(int tiempoTotal) {
-        // Convertir el tiempo total de Timestamp a minutos
-     //   long totalMinutes = TimeUnit.MILLISECONDS.toMinutes(tiempoTotal.getTime());        
+        public static double calcularMontoTotal(int tiempoTotal) {      
         // Reglas de cobro
         if (tiempoTotal <= 5) {
             return 0;
@@ -133,23 +123,6 @@ public static int calcularTiempoTotal(Time hora_entrada, Time hora_salida) {
         }
     }
         
-        
- /*           private String obtenerNombreInfante(int ID_infante) {
-        String nombreInfante = null;
-        try {
-            String query = "SELECT nombre FROM infantes WHERE ID_infante = ?";
-            PreparedStatement pps = con.prepareStatement(query);
-            pps.setInt(1, ID_infante);
-            ResultSet rs = pps.executeQuery();
-            if (rs.next()) {
-                nombreInfante = rs.getString("nombre");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el nombre del infante: " + e.getMessage());
-        }
-        return nombreInfante;
-    }*/
-
     private final Atributos a;
      
     }
