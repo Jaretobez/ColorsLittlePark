@@ -68,14 +68,14 @@ try {
             pps.setString(2, newape);
             pps.setInt(3, newedad);
             pps.setInt(4, id);
-    /*        int rowsAffected = pps.executeUpdate();
+          int rowsAffected = pps.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Datos del infante actualizados correctamente.");
+            //    System.out.println("Datos del infante actualizados correctamente.");
             } else {
-                System.out.println("Error: No se pudo actualizar los datos del infante.");
-            }*/
+            //    System.out.println("Error: No se pudo actualizar los datos del infante.");
+            }
         } catch (SQLException e) {
-            System.out.println("Error al actualizar los datos en la base de datos: " + e.getMessage());
+       //     System.out.println("Error al actualizar los datos en la base de datos: " + e.getMessage());
         }
     }
 

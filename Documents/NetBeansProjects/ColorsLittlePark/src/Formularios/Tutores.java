@@ -45,40 +45,46 @@ public class Tutores extends javax.swing.JFrame {
 
     }
 
-    void Agregar() {
-
+void Agregar() {
+    int confirm = JOptionPane.showConfirmDialog(null, "¿Desea agregar este reistro?", "Confirmar Agregar", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
         String tel = txtTelefono.getText();
         String nombre = txtNomTutor.getText();
         String apellido = txtApeTutor.getText();
         String num = String.valueOf(tel);
-        
+
         if (tel.length() == 10 && tel.matches("\\d+")) {
-        // Agregar a la base de datos
-        tutor.RegistrarTutor(tel, nombre, apellido);
-        // Agregar a la tabla
-        MostrarTabla();
-        dtm.addRow(new Object[]{tel, nombre, apellido});
-        }else{
-        JOptionPane.showMessageDialog(null, "El número de teléfono es invalido", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            // Agregar a la base de datos
+            tutor.RegistrarTutor(tel, nombre, apellido);
+            // Agregar a la tabla
+            MostrarTabla();
+            dtm.addRow(new Object[]{tel, nombre, apellido});
+        } else {
+            JOptionPane.showMessageDialog(null, "El número de teléfono es invalido", "Error de Validación", JOptionPane.ERROR_MESSAGE);
         }
     }
+}
 
-    void Eliminar() {
-        DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
-        int fila = tblTutor.getSelectedRow();
-        if (fila >= 0) {
+void Eliminar() {
+    int fila = tblTutor.getSelectedRow();
+    if (fila >= 0) {
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Desea eliminar este reistro?", "Confirmar Eliminar", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
             String num_telefono = (String) dtm.getValueAt(fila, 0);
             // Eliminar de la base de datos
             tutor.EliminarTutor(num_telefono);
             // Eliminar de la tabla
             dtm.removeRow(fila);
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
-            System.out.println("No se seleccionó ninguna fila.");
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar.");
     }
+}
 
-    void Actualizar() {
+void Actualizar() {
+    int confirm = JOptionPane.showConfirmDialog(null, "¿Desea modificar este reistro?", "Confirmar Modificar", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
         // Obtener el modelo de la tabla
         DefaultTableModel dtm = (DefaultTableModel) tblTutor.getModel();
         // Obtener la fila seleccionada
@@ -91,15 +97,16 @@ public class Tutores extends javax.swing.JFrame {
 
         // Verificar si una fila está realmente seleccionada
         if (selectedRow >= 0) {
-            // Actualizar en la base de datos
-            tutor.ModificarTutor(telefono, nombre, apellido);
-
-            // Actualizar los valores en la tabla
-            dtm.setValueAt(telefono, selectedRow, 0);
-            dtm.setValueAt(nombre, selectedRow, 1);
-            dtm.setValueAt(apellido, selectedRow, 2);
-
-            System.out.println("Datos del tutor actualizados correctamente.");
+            if (telefono.length() == 10 && telefono.matches("\\d+")) {
+                // Actualizar en la base de datos
+                tutor.ModificarTutor(telefono, nombre, apellido);
+                // Actualizar los valores en la tabla
+                dtm.setValueAt(telefono, selectedRow, 0);
+                dtm.setValueAt(nombre, selectedRow, 1);
+                dtm.setValueAt(apellido, selectedRow, 2);
+            } else {
+                JOptionPane.showMessageDialog(null, "El número de teléfono es invalido", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             // Si no hay ninguna fila seleccionada, buscar el teléfono en la tabla
             boolean found = false;
@@ -107,22 +114,21 @@ public class Tutores extends javax.swing.JFrame {
                 if (dtm.getValueAt(i, 0).toString().equals(telefono)) {
                     // Actualizar en la base de datos
                     tutor.ModificarTutor(telefono, nombre, apellido);
-
                     // Actualizar los valores en la tabla
                     dtm.setValueAt(telefono, i, 0);
                     dtm.setValueAt(nombre, i, 1);
                     dtm.setValueAt(apellido, i, 2);
-
-                    System.out.println("Datos del tutor actualizados correctamente.");
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                System.out.println("Error: No se encontró un tutor con el número de teléfono especificado.");
+                JOptionPane.showMessageDialog(null, "No se encontró ningún tutor con el dato especificado.");
             }
         }
     }
+}
+
     
     
 public void Consultar() {

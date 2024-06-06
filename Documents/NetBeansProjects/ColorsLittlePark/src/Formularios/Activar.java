@@ -10,12 +10,19 @@ import Clases.Infante;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.sql.SQLException;
 
 /**
  *
@@ -157,25 +164,57 @@ private void activarInfante() {
 }
     
     
-    private void desactivarInfante() {
-        DefaultTableModel dtm = (DefaultTableModel) tblActivos2.getModel();
-        int selectedRow = tblActivos2.getSelectedRow();
-        if (selectedRow >= 0) {
-            try {
-                Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
-                int idActivo = Integer.parseInt(idInfanteObj.toString());
-
-                    activos.Desactivar(idActivo);
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + ex.getMessage());
+public String getHoraEntrada(Connection conector, int idActivo) throws SQLException {
+    String query = "SELECT hora_entrada FROM activos WHERE id_activo = ?";
+    try (PreparedStatement stmt = conector.prepareStatement(query)) {
+        stmt.setInt(1, idActivo);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("hora_entrada");
+            } else {
+                throw new SQLException("No se encontró el activo con ID: " + idActivo);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila para desactivar.");
         }
     }
+}
+
+
+    
+private void desactivar(Connection conector) {
+    DefaultTableModel dtm = (DefaultTableModel) tblActivos2.getModel();
+    int selectedRow = tblActivos2.getSelectedRow();
+    if (selectedRow >= 0) {
+        try {
+            Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Suponiendo que el ID está en la columna 0
+            int idActivo = Integer.parseInt(idInfanteObj.toString());
+
+            // Obtener la hora de entrada de la base de datos
+            String horaEntradaStr = getHoraEntrada(conector, idActivo);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date horaEntrada = dateFormat.parse(horaEntradaStr);
+
+            // Verificar el tiempo transcurrido desde la activación
+            long elapsedTime = new Date().getTime() - horaEntrada.getTime();
+            long elapsedMinutes = TimeUnit.MILLISECONDS.toMinutes(elapsedTime);
+
+            if (elapsedMinutes < 5) {
+                JOptionPane.showMessageDialog(null, "No se puede desactivar el infante antes de 5 minutos de su activación.");
+                return;
+            }
+
+            // Desactivar el infante
+            activos.Desactivar(idActivo);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Seleccione una fila para desactivar.");
+    }
+}
+
 
    
     /**
@@ -441,8 +480,9 @@ private void activarInfante() {
     }//GEN-LAST:event_jButton2MousePressed
 
     private void fSButtonMD3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD3MousePressed
-        desactivarInfante();
-        MostrarTabla();
+     ConexionBD con = new ConexionBD();
+    desactivar((Connection) con); // Llamar a la función desactivarInfante pasando la conexión
+    MostrarTabla(); // Actualizar la tabla
     }//GEN-LAST:event_fSButtonMD3MousePressed
 
     /**

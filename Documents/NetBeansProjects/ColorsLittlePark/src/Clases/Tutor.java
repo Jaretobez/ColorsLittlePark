@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 public class Tutor {  
@@ -25,11 +26,11 @@ public class Tutor {
         boolean error = false;
         try {
             if (VerificaNum(num)) {
-                System.out.println("Error: El Numero ya existe en la base de datos.");
+                 JOptionPane.showMessageDialog(null, "Error: El Numero ya existe en la base de datos.");
                 return;
             }            
         } catch (RuntimeException e) {
-            System.out.println("Error: " + e.getMessage());
+             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             error = true;
         }
         try {
@@ -40,10 +41,10 @@ public class Tutor {
             pps.setString(3, apellido);
             pps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
+//            System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
         }
         if (!error) {
-            System.out.println("Datos guardados correctamente.");
+   //         System.out.println("Datos guardados correctamente.");
         }
     }
     
@@ -52,7 +53,7 @@ public class Tutor {
             try {
             // Verificar si el infante con el ID proporcionado existe
             if (!VerificaNum(num)) {
-                System.out.println("Error: numero de telefono no existe en la base de datos.");
+               JOptionPane.showMessageDialog(null, "Error: El Numero ya existe en la base de datos.");
                 return;
             }
             // Actualizar los datos del infante
@@ -63,12 +64,13 @@ public class Tutor {
             pps.setString(3, num);
             int rowsAffected = pps.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Datos del tutor actualizados correctamente.");
+        //        System.out.println("Datos del tutor actualizados correctamente.");
             } else {
-                System.out.println("Error: No se pudo actualizar los datos del tutor.");
+                JOptionPane.showMessageDialog(null, "Error: No se pudo actualizar los datos del tutor.");
+                System.out.println("");
             }
         } catch (SQLException e) {
-            System.out.println("Error al actualizar los datos en la base de datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar los datos en la base de datos: " + e.getMessage());
         }
     }
 
@@ -81,13 +83,13 @@ public class Tutor {
                 deleteinfanteStatement.setString(1, num);
                 int rowsAffected = deleteinfanteStatement.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("tutor y registros relacionados eliminados con éxito.");
+                JOptionPane.showMessageDialog(null, "registro eliminado con éxito.");
                 } else {
-                    System.out.println("No se encontró el tutor con el numero especificado.");
+                    JOptionPane.showMessageDialog(null, "No se encontró el tutor con el numero especificado.");
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al eliminar tutor y registros relacionados en la base de datos.");
+             JOptionPane.showMessageDialog(null, "Error al eliminar tutor y registros relacionados en la base de datos.");
         }
     }
 
@@ -110,7 +112,7 @@ public List<String[]> ConsultarTutor(String valorBusqueda) {
                         tutorInfo[2] = rs.getString("apellido");
                         resultados.add(tutorInfo);
                         // Imprimir cada registro encontrado
-                        System.out.println("Registro encontrado: " + Arrays.toString(tutorInfo));
+               //         System.out.println("Registro encontrado: " + Arrays.toString(tutorInfo));
                     }
                     // Si encontramos resultados, dejamos de buscar
                     if (!resultados.isEmpty()) {
@@ -118,7 +120,7 @@ public List<String[]> ConsultarTutor(String valorBusqueda) {
                     }
                 }
             } catch (SQLException e) {
-                System.out.println("Error al consultar los datos en la base de datos: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al consultar los datos en la base de datos: " + e.getMessage());
             }
         }
 
