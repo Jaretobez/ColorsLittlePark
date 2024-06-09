@@ -17,10 +17,10 @@ import java.util.logging.Logger;
 public class ConexionBD {
     private static Connection con;
     
-   /* private static final*/ String bd="colorslittlepark";
+   /* private static final*/ String bd="colorlittlepark";
     /* private static final*/ String driver="com.mysql.cj.jdbc.Driver";
-    /* private static final*/ String user="root";
-    /* private static final*/ String pass="1234";
+    /* private static final*/ String user="newuser";
+    /* private static final*/ String pass="sqlpassword1";
     /* private static final*/ String url="jdbc:mysql://localhost:3306/";
     
     public ConexionBD(){

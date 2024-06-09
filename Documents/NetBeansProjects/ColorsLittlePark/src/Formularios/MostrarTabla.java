@@ -25,7 +25,7 @@ public class MostrarTabla {
     ResultSet rs = null;
 
     public DefaultTableModel mostrarTutores() {
-        String[] nombresColumnas = {"num_telefono", "nombre", "apellido"};
+        String[] nombresColumnas = {"Telefono", "Nombre", "Apellido"};
         String[] registros = new String[3];
 
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas){
@@ -62,7 +62,7 @@ public class MostrarTabla {
     }
 
     public DefaultTableModel mostrarInfantes() {
-        String[] nomColumnas = {"ID_infante", "nombre", "apellido", "edad", "tutor"};
+        String[] nomColumnas = {"ID infante", "Nombre", "Apellido", "Edad", "Telefono"};
         String[] registrosinf = new String[5];
         DefaultTableModel modeloinf = new DefaultTableModel(null, nomColumnas){
                      @Override
@@ -96,7 +96,7 @@ public class MostrarTabla {
     }
 
     public DefaultTableModel MostrarActivos() {
-        String[] nomColumnas = {"idactivo", "idinfante", "nombre", "Telefono", "hora de entrada"};
+        String[] nomColumnas = {"ID activo", "ID infante", "Nombre", "Telefono", "Hr entrada"};
         String[] registros = new String[5];
         DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas){
              @Override
@@ -129,7 +129,7 @@ public class MostrarTabla {
     
     
         public DefaultTableModel MostrarVentas() {
-        String[] nomColumnas = {"folio", "tiempo", "tipo_pago", "monto_total",  "fecha", "hora_entrada", "hora_salida", "nom_infante"};
+        String[] nomColumnas = {"Folio", "Tiempo", "Tipo_pago", "Monto_Total",  "Fecha", "Hr entrada", "Hr salida", "nom_infante"};
         String[] registros = new String[8];
         DefaultTableModel modelo = new DefaultTableModel(null, nomColumnas){
                              @Override

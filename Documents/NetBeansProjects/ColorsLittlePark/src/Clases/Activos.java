@@ -4,16 +4,16 @@
  */
 package Clases;
 
-import java.beans.Statement;
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
+
 
 public class Activos {
 
@@ -76,9 +76,9 @@ public class Activos {
                     String[] infanteInfo = new String[5];
                     infanteInfo[0] = rs.getString("idactivo");
                     infanteInfo[1] = rs.getString("infante");
-                    infanteInfo[2] = rs.getString("fk_num_telefono_act");
-                    infanteInfo[3] = rs.getString("hora_entrada");
-                    infanteInfo[4] = rs.getString("nomb_infante");
+                    infanteInfo[2] = rs.getString("nomb_infante");
+                    infanteInfo[3] = rs.getString("fk_num_telefono_act");
+                    infanteInfo[4] = rs.getString("hora_entrada");
                     resultados.add(infanteInfo);
                 }
                 // Si encontramos resultados, dejamos de buscar
@@ -97,9 +97,10 @@ public class Activos {
     //Funcion que generea un ID aleatorio al activar infante
     public static int generarIdActivo() {
         Random random = new Random();
-        int id = 100 + random.nextInt(900);
+        int id = 10 + random.nextInt(90);
         return id;
     }
+    
 
     //funcion para verificar si el ID generado existe en la tabla activos
     public boolean VerificaIdActivo(int id) {
@@ -113,6 +114,8 @@ public class Activos {
             return false;  // Manejar la excepción de alguna manera adecuada para tu aplicación
         }
     }
+    
+
     
     //funcion para verificar la existencia del infante en la tabla activos
     public boolean VerificaInfanteEnActivos(int id_infante) {
@@ -148,6 +151,7 @@ public class Activos {
       JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + e.getMessage());
         }
     }
+
 
     private final Atributos a;
 
