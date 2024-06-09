@@ -12,7 +12,6 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
 
 public class Activos {

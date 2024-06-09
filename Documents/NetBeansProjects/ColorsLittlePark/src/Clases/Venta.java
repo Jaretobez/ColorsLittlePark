@@ -52,14 +52,12 @@ public class Venta {
             pps.setTime(6, hora_entrada);
             pps.setTime(7, hora_salida);
             pps.setString(8,  nom_infante);
-            pps.executeUpdate();
-            
+            pps.executeUpdate();           
 
         } catch (SQLException e) {
-            System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
+
         }
         if (!error) {
-            System.out.println("Datos guardados correctamente.");
                         activos.Desactivar(idactivo);
         }
     }

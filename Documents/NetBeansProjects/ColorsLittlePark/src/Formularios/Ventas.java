@@ -75,23 +75,19 @@ public class Ventas extends javax.swing.JFrame {
 
 
 private void RegistrarVenta() {
-   String tipo_pago = jComboBox1.getSelectedItem().toString();
-
+    String tipo_pago = jComboBox1.getSelectedItem().toString();
     int selectedRow = tblActivosVentas.getSelectedRow();
     
     if (selectedRow >= 0) {
         try {
-                DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
-                Object idactivoObj = dtm.getValueAt(selectedRow, 0);
-                String idactivo = idactivoObj.toString();
-                Object idInfante = dtm.getValueAt(selectedRow, 1);
-                String idinf = idInfante.toString();
-                String hrEntrada = txtHREntrada.getText();
-                Object nominf = dtm.getValueAt(selectedRow, 2); 
-                String nom_infante = nominf.toString();
+            DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
+            Object idactivoObj = dtm.getValueAt(selectedRow, 0);
+            String idactivo = idactivoObj.toString();
+            String hrEntrada = txtHREntrada.getText();
+            Object nominf = dtm.getValueAt(selectedRow, 2); 
+            String nom_infante = nominf.toString();
             
             // Convertir idInfante a int
-            int id_inf = Integer.parseInt(idinf);
             int id_act = Integer.parseInt(idactivo);
             // Convertir hora_entrada a Time
             Time horaEntrada = Time.valueOf(hrEntrada);
@@ -99,10 +95,13 @@ private void RegistrarVenta() {
             // Obtener la hora actual y convertirla a Time
             LocalTime horaActual = LocalTime.now();
             Time horaSalida = Time.valueOf(horaActual);
-            
-            // Llamar al método para agregar la venta
-            venta.AgregarVenta(tipo_pago, horaEntrada, horaSalida, nom_infante, id_act);
-           
+
+            // Mostrar un mensaje de confirmación al usuario
+            int option = JOptionPane.showConfirmDialog(null, "¿Desea registrar la venta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                // Llamar al método para agregar la venta
+                venta.AgregarVenta(tipo_pago, horaEntrada, horaSalida, nom_infante, id_act);
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
         } catch (Exception ex) {
@@ -112,6 +111,7 @@ private void RegistrarVenta() {
         JOptionPane.showMessageDialog(null, "Seleccione una fila para activar.");
     }
 }
+
 
 
     public void ConsultarActivosve() {
@@ -134,29 +134,6 @@ private void RegistrarVenta() {
     }
     tblActivosVentas.setModel(dtm);
 }
-
-    
-        private void desactivarInfante() {
-        DefaultTableModel dtm = (DefaultTableModel) tblActivosVentas.getModel();
-        int selectedRow = tblActivosVentas.getSelectedRow();
-        if (selectedRow >= 0) {
-            try {
-                Object idActObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
-                int idActivo = Integer.parseInt(idActObj.toString());
-                    activos.Desactivar(idActivo);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al desactivar el infante: " + ex.getMessage());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila para desactivar.");
-        }
-    }
-       
-
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,6 +163,7 @@ private void RegistrarVenta() {
         fSButtonMD1 = new LIB.FSButtonMD();
         jLabel6 = new javax.swing.JLabel();
         txtHREntrada = new javax.swing.JTextField();
+        fSButtonMD2 = new LIB.FSButtonMD();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -261,6 +239,7 @@ private void RegistrarVenta() {
         tblActivosVentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblActivosVentas);
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Activos");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busquda (2).png"))); // NOI18N
@@ -274,6 +253,7 @@ private void RegistrarVenta() {
 
         txtBuscarAct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Ventas");
 
@@ -293,6 +273,17 @@ private void RegistrarVenta() {
         txtHREntrada.setEditable(false);
         txtHREntrada.setBackground(new java.awt.Color(255, 255, 204));
         txtHREntrada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+
+        fSButtonMD2.setBackground(new java.awt.Color(255, 0, 0));
+        fSButtonMD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Actualizarinfo.png"))); // NOI18N
+        fSButtonMD2.setColorNormal(new java.awt.Color(255, 0, 0));
+        fSButtonMD2.setColorTextHover(new java.awt.Color(255, 0, 0));
+        fSButtonMD2.setContentAreaFilled(true);
+        fSButtonMD2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fSButtonMD2MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout txtBuscarActivosLayout = new javax.swing.GroupLayout(txtBuscarActivos);
         txtBuscarActivos.setLayout(txtBuscarActivosLayout);
@@ -323,7 +314,9 @@ private void RegistrarVenta() {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscarAct, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscarAct, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fSButtonMD2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
@@ -347,9 +340,10 @@ private void RegistrarVenta() {
                         .addGroup(txtBuscarActivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1)
-                            .addComponent(txtBuscarAct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtBuscarAct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fSButtonMD2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(txtBuscarActivosLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(txtBuscarActivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,11 +362,11 @@ private void RegistrarVenta() {
                                 .addGap(0, 0, 0)
                                 .addComponent(txtHREntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(20, 20, 20)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addGap(43, 43, 43))
         );
 
@@ -396,13 +390,16 @@ private void RegistrarVenta() {
 
     private void fSButtonMD1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD1MousePressed
         RegistrarVenta();
-      //  desactivarInfante();
         MostrarTabla();
     }//GEN-LAST:event_fSButtonMD1MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         ConsultarActivosve();
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void fSButtonMD2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fSButtonMD2MousePressed
+        MostrarTabla();
+    }//GEN-LAST:event_fSButtonMD2MousePressed
 
     /**
      * @param args the command line arguments
@@ -421,6 +418,7 @@ private void RegistrarVenta() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private LIB.FSButtonMD fSButtonMD1;
+    private LIB.FSButtonMD fSButtonMD2;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

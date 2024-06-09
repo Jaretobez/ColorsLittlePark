@@ -91,23 +91,27 @@ private void activarInfante() {
     int selectedRow = tblInfantes.getSelectedRow();
     if (selectedRow >= 0) {
         try {
-            Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Assuming the ID is at column 0
+            Object idInfanteObj = dtm.getValueAt(selectedRow, 0); // Suponiendo que el ID está en la columna 0
             Object nombre_infanteObj = dtm.getValueAt(selectedRow, 1);
-            Object numTelefonoObj = dtm.getValueAt(selectedRow, 4); // Assuming phone number is at column 4
+            Object numTelefonoObj = dtm.getValueAt(selectedRow, 4); // Suponiendo que el número de teléfono está en la columna 4
             
             int idInfante = Integer.parseInt(idInfanteObj.toString());
             String numTelefono = numTelefonoObj.toString();
             String nombre_infante = nombre_infanteObj.toString();
 
-            // Obtener la hora actual
-            LocalTime horaEntrada = LocalTime.now();
-            // Convertir la hora actual a formato de cadena (opcional)
-            String horaEntradaStr = horaEntrada.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            
-            if (activos.VerificaInfanteEnActivos(idInfante)) {
-                JOptionPane.showMessageDialog(null, "El infante con ID " + idInfante + " ya está activo.");
-            } else {
-                activos.Activar(idInfante, numTelefono, horaEntradaStr, nombre_infante);
+            // Mostrar un mensaje de confirmación al usuario
+            int option = JOptionPane.showConfirmDialog(null, "¿Desea activar al infante " + nombre_infante + "?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                // Obtener la hora actual
+                LocalTime horaEntrada = LocalTime.now();
+                // Convertir la hora actual a formato de cadena (opcional)
+                String horaEntradaStr = horaEntrada.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                
+                if (activos.VerificaInfanteEnActivos(idInfante)) {
+                    JOptionPane.showMessageDialog(null, "El infante con ID " + idInfante + " ya está activo.");
+                } else {
+                    activos.Activar(idInfante, numTelefono, horaEntradaStr, nombre_infante);
+                }
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
@@ -118,6 +122,7 @@ private void activarInfante() {
         JOptionPane.showMessageDialog(null, "Seleccione una fila para activar.");
     }
 }
+
 
     public void ConsultarActivoss() {
     String buscar = txtBuscarActivo.getText();
@@ -188,12 +193,9 @@ private void desactivar() {
             Object idInfanteObj = dtm.getValueAt(selectedRow, 0);
             int idActivo = Integer.parseInt(idInfanteObj.toString());
 
-            // Suponiendo que la hora de entrada está en la columna 3
+            // Suponiendo que la hora de entrada está en la columna 4
             Object hora_entradaObj = dtm.getValueAt(selectedRow, 4);
             String hora_entrada = hora_entradaObj.toString();
-
-            // Debug print para verificar el valor de hora_entrada
-   //         System.out.println("Hora de entrada obtenida de la tabla: " + hora_entrada);
 
             // Formatear y parsear la hora de entrada
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -203,18 +205,18 @@ private void desactivar() {
             // Verificar el tiempo transcurrido desde la activación
             long elapsedMinutes = Duration.between(horaEntrada, horaActual).toMinutes();
 
-            // Debug print para verificar el tiempo transcurrido
-        //    System.out.println("Tiempo transcurrido en minutos: " + elapsedMinutes);
+            // Mostrar un mensaje de confirmación al usuario
+            int option = JOptionPane.showConfirmDialog(null, "¿Desea desactivar al infante?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                if (elapsedMinutes >= 5) {
+                    JOptionPane.showMessageDialog(null, "No se puede desactivar el infante después de 5 minutos de su activación.");
+                    return;
+                }
 
-            if (elapsedMinutes >= 5) {
-                JOptionPane.showMessageDialog(null, "No se puede desactivar el infante después de 5 minutos de su activación.");
-                return;
+                // Agregar a historial de eliminados y desactivar
+                historialEliminacion.AgregarHistoriaEliminados(idActivo);
+                activos.Desactivar(idActivo);
             }
-
-            // Agregar a historial de eliminados y desactivar
-            historialEliminacion.AgregarHistoriaEliminados(idActivo);
-            activos.Desactivar(idActivo);
-            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al convertir los datos de la tabla: " + ex.getMessage());
         } catch (Exception ex) {
@@ -224,6 +226,7 @@ private void desactivar() {
         JOptionPane.showMessageDialog(null, "Seleccione una fila para desactivar.");
     }
 }
+
 
    
     /**
