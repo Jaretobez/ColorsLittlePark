@@ -108,7 +108,7 @@ public class MostrarTabla {
      }
      }
         };
-        String sql = "SELECT * FROM activos";
+        String sql = "SELECT * FROM activos ORDER BY hora_entrada DESC";
         try {
             connection = con.conector();
             pst = con.prepareStatement(sql);
@@ -141,7 +141,7 @@ public class MostrarTabla {
      }
      }
         };
-        String sql = "SELECT * FROM venta";
+        String sql = "SELECT * FROM venta ORDER BY fecha DESC, hora_entrada DESC";
         try {
             connection = con.conector();
             pst = con.prepareStatement(sql);

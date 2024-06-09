@@ -38,7 +38,7 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         InitStyles();
         this.setLocationRelativeTo(null);
-         MostrarTabla();
+         MostrarTablaHome();
          actualizarJLabel(ventasDelDiaLabel);
       //  initializeTables();
 
@@ -50,7 +50,7 @@ public class Home extends javax.swing.JFrame {
               jButton3.putClientProperty( "JButton.buttonType", "roundRect" );  
     }
     
-    public void MostrarTabla() {     
+    public void MostrarTablaHome() {     
     MostrarTabla mostrartabla = new MostrarTabla();      
     DefaultTableModel modeloActivos = mostrartabla.MostrarActivos(); 
     tblActivos.setModel(modeloActivos);    
@@ -484,7 +484,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_fSButtonMD5MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        MostrarTabla();
+        MostrarTablaHome();
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed

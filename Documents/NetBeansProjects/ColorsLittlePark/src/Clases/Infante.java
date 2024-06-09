@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -21,20 +20,15 @@ public class Infante {
     //funcion Para registrar infante
     public void RegistrarInfante(String nombre, String apellido, int edad, String tutor) {
 int id = 0;
-boolean error = false;
 try {
     boolean idExiste;
     do {
         id = generarID();
         idExiste = VerificaId(id);
- /*       if (idExiste) {
-            System.out.println("El ID de Infante ya existe en la base de datos. Generando un nuevo ID...");
-        }*/
     } while (idExiste); 
     // Una vez que se encuentra un ID único, asignarlo al infante
 } catch (RuntimeException e) {
     System.out.println("Error: " + e.getMessage());
-    error = true;
 }
         try {
             String query = "INSERT INTO infantes(ID_infante, nombre, apellido, edad, tutor) VALUES(?, ?, ?, ?, ?)";
@@ -48,9 +42,6 @@ try {
         } catch (SQLException e) {
             System.out.println("Error al guardar los datos en la base de datos: " + e.getMessage());
         }
-      /*  if (!error) {
-            System.out.println("Datos guardados correctamente.");
-        }*/
     }
   
     //funcion Para modificar infante

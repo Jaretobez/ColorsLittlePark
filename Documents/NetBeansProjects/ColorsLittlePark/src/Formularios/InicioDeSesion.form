@@ -35,7 +35,7 @@
     <Container class="LIB.JEImagePanel" name="jEImagePanel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/LogoCLP.jpg"/>
+          <Image iconType="3" name="/img/Canada_Mountains_Scenery_488701.jpg"/>
         </Property>
       </Properties>
       <Constraints>
