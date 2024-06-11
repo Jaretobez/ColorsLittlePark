@@ -7,6 +7,8 @@ package Formularios;
 import Clases.Autenticacion;
 import Clases.ConexionBD;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class InicioDeSesion extends javax.swing.JFrame {
 
@@ -15,7 +17,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         initComponents();
         auten = new Autenticacion();
         this.setLocationRelativeTo(null);
-      //  txtUsuario.setBackground(0,0,0,1);
+      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
     }
 
 

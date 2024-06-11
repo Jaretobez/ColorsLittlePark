@@ -8,6 +8,7 @@ import Clases.Activos;
 import Clases.ConexionBD;
 import Clases.Venta;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import java.time.LocalTime;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,7 +17,7 @@ import java.sql.Time;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -36,6 +37,7 @@ public class Ventas extends javax.swing.JFrame {
         MostrarTabla();
         this.setLocationRelativeTo(null);
         initializeTables();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
     }
     
         public void MostrarTabla() {
@@ -337,11 +339,12 @@ private void RegistrarVenta() {
                 .addGap(6, 6, 6)
                 .addGroup(txtBuscarActivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(txtBuscarActivosLayout.createSequentialGroup()
-                        .addGroup(txtBuscarActivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(txtBuscarAct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fSButtonMD2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(txtBuscarActivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fSButtonMD2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(txtBuscarActivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1)
+                                .addComponent(txtBuscarAct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(txtBuscarActivosLayout.createSequentialGroup()

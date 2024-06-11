@@ -9,6 +9,7 @@ import Clases.ConexionBD;
 import Clases.HistorialEliminacion;
 import Clases.Infante;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,6 +24,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.Duration;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -42,6 +45,7 @@ public class Activar extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
          MostrarTabla();
          initializeTables();
+         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
     }
     
     

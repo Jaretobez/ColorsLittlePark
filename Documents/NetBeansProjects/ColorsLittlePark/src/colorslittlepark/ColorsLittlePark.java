@@ -4,17 +4,26 @@
  */
 package colorslittlepark;
 
+import Formularios.InicioDeSesion;
+import java.awt.Toolkit;
+
+
 /**
  *
  * @author Jared
  */
 public class ColorsLittlePark {
+    
+    public ColorsLittlePark (){
 
+
+    }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+     InicioDeSesion iniciosesion = new InicioDeSesion();
+     iniciosesion.setVisible(true);
     }
     
 }

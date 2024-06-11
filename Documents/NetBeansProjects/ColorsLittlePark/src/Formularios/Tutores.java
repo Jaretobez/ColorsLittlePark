@@ -12,7 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 /**
  *
  * @author Jared
@@ -33,6 +34,7 @@ public class Tutores extends javax.swing.JFrame {
         MostrarTabla();
         this.setLocationRelativeTo(null);
         initialize();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
     }
 
     public void MostrarTabla() {

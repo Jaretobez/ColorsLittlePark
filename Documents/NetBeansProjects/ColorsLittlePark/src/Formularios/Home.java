@@ -8,6 +8,7 @@ import Clases.CorteDeCaja;
 import Clases.Activos;
 import Clases.ConexionBD;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 /**
  *
  * @author Jared
@@ -41,7 +43,7 @@ public class Home extends javax.swing.JFrame {
          MostrarTablaHome();
          actualizarJLabel(ventasDelDiaLabel);
       //  initializeTables();
-
+    setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
     }
     
     private void InitStyles(){

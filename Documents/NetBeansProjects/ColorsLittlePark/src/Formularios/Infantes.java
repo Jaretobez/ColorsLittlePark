@@ -8,6 +8,8 @@ import Clases.Tutor;
 import Clases.ConexionBD;
 import Clases.Infante;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -32,6 +34,7 @@ public class Infantes extends javax.swing.JFrame {
         MostrarTabla();
         this.setLocationRelativeTo(null);
         initializeTables();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
     }
 
 // Mostrar los datos en las tablas
