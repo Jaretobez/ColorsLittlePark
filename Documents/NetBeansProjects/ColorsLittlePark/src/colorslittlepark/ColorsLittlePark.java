@@ -5,6 +5,7 @@
 package colorslittlepark;
 
 import Formularios.InicioDeSesion;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Toolkit;
 
 
@@ -22,6 +23,7 @@ public class ColorsLittlePark {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        FlatLightLaf.setup();
      InicioDeSesion iniciosesion = new InicioDeSesion();
      iniciosesion.setVisible(true);
     }

@@ -37,7 +37,7 @@ public class Ventas extends javax.swing.JFrame {
         MostrarTabla();
         this.setLocationRelativeTo(null);
         initializeTables();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo (64x32).png")));
     }
     
         public void MostrarTabla() {
@@ -211,7 +211,7 @@ private void RegistrarVenta() {
 
         jLabel2.setText("Tipo de pago");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta debito", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta debito" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
 
         txtIdInfante.setEditable(false);

@@ -34,7 +34,7 @@ public class Tutores extends javax.swing.JFrame {
         MostrarTabla();
         this.setLocationRelativeTo(null);
         initialize();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo (64x32).png")));
     }
 
     public void MostrarTabla() {

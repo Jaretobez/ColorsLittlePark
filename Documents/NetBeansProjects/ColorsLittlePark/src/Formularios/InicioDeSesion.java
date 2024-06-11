@@ -17,7 +17,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         initComponents();
         auten = new Autenticacion();
         this.setLocationRelativeTo(null);
-      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/LogoCLP(64px).jpg")));
+      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo (64x32).png")));
     }
 
 
