@@ -16,7 +16,7 @@ public class HistorialEliminacion {
     Activos activos = new Activos();
     
     // Agrega al infante desactivado a la tabla historial_eliminacion  
-    public void AgregarHistoriaEliminados(int idactivo) {
+    public void AgregarHistoriaEliminados(int idinfante) {
         int id = 0;
         boolean error = false;
         try {
@@ -36,11 +36,11 @@ public class HistorialEliminacion {
             java.sql.Date fecha_eliminacion = new java.sql.Date(now.getTime());
             java.sql.Time hora_eliminacion = new java.sql.Time(now.getTime());
             
-            String query = "INSERT INTO historial_eliminacion(id_eliminacion, fecha_eliminacion, activo, hora_eliminacion) VALUES(?, ?, ?, ?)";
+            String query = "INSERT INTO historial_eliminacion(id_eliminacion, idinfante, fecha_eliminacion, hora_eliminacion) VALUES(?, ?, ?, ?)";
             PreparedStatement pps = con.prepareStatement(query);
             pps.setInt(1, id);
-            pps.setDate(2, fecha_eliminacion);
-            pps.setInt(3, idactivo);
+            pps.setInt(2, idinfante);
+            pps.setDate(3, fecha_eliminacion);
             pps.setTime(4, hora_eliminacion);
             pps.executeUpdate();
         } catch (SQLException e) {

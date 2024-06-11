@@ -194,8 +194,11 @@ private void desactivar() {
     if (selectedRow >= 0) {
         try {
             // Suponiendo que el ID está en la columna 0
-            Object idInfanteObj = dtm.getValueAt(selectedRow, 0);
-            int idActivo = Integer.parseInt(idInfanteObj.toString());
+            Object idInfanteObj = dtm.getValueAt(selectedRow, 1);
+            int idInfante = Integer.parseInt(idInfanteObj.toString());
+            
+            Object idActivoObj = dtm.getValueAt(selectedRow, 0);
+            int idActivo = Integer.parseInt(idActivoObj.toString());
 
             // Suponiendo que la hora de entrada está en la columna 4
             Object hora_entradaObj = dtm.getValueAt(selectedRow, 4);
@@ -212,13 +215,9 @@ private void desactivar() {
             // Mostrar un mensaje de confirmación al usuario
             int option = JOptionPane.showConfirmDialog(null, "¿Desea desactivar al infante?", "Confirmación", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                if (elapsedMinutes >= 5) {
-                    JOptionPane.showMessageDialog(null, "No se puede desactivar el infante después de 5 minutos de su activación.");
-                    return;
-                }
 
                 // Agregar a historial de eliminados y desactivar
-                historialEliminacion.AgregarHistoriaEliminados(idActivo);
+                historialEliminacion.AgregarHistoriaEliminados(idInfante);
                 activos.Desactivar(idActivo);
             }
         } catch (NumberFormatException ex) {

@@ -38,7 +38,7 @@ public class CorteDeCaja {
     private String fechaActual = "";
     private String nombreArchivoPDFVenta = "";
 
-    public void generarReporte() {
+public void generarReporte() {
         try {
             // Determinar el turno basado en la hora actual
             LocalTime ahora = LocalTime.now();
@@ -47,20 +47,25 @@ public class CorteDeCaja {
             // Cargar la fecha actual
             Date date = new Date();
             fechaActual = new SimpleDateFormat("yyyy-MM-dd").format(date);
-            // Cambiar el formato de la fecha de / a _
+            // Cambiar el formato de la fecha de - a _
             String fechaNueva = fechaActual.replace("-", "_");
+             String timestamp = new SimpleDateFormat("HHmmss").format(new Date());
+            nombreArchivoPDFVenta = "ReporteVentas_" + turno + "_" + fechaNueva +"_" +timestamp +".pdf";
 
-            nombreArchivoPDFVenta = "Reporte_Ventas_" + turno + "_" + fechaNueva + ".pdf";
+            // Obtener la ubicación del directorio donde se encuentra el ejecutable
+            String currentDir = System.getProperty("user.dir");
 
-            FileOutputStream archivo;
-            File file = new File("src/PDF/" + nombreArchivoPDFVenta);
-            archivo = new FileOutputStream(file);
+            File file = new File(currentDir, nombreArchivoPDFVenta);
+            FileOutputStream archivo = new FileOutputStream(file);
 
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
             doc.open();
 
-            Image img = Image.getInstance("src/img/activos.png");
+         /*   // Cambiar la ruta de la imagen para que sea absoluta
+            String imagePath = currentDir + "/src/img/activos.png";
+            Image img = Image.getInstance(imagePath);*/
+
             Paragraph fecha = new Paragraph();
             Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
             fecha.add(Chunk.NEWLINE); // Agregar nueva línea
@@ -74,7 +79,9 @@ public class CorteDeCaja {
             encabezado.setWidths(columnaEncabezado);
             encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
             // Agregar celdas
-            encabezado.addCell(img);
+         //   encabezado.addCell();
+                     // Agregar celdas vacías para el lugar de la imagen
+            encabezado.addCell("");
 
             String ruc = "0987654321001";
             String nombre = "Colors Little Park";
@@ -159,7 +166,7 @@ public class CorteDeCaja {
                     tablaVentas.addCell(tiempo);
                     tablaVentas.addCell(tipoPago);
                     tablaVentas.addCell(monto_total);
-                    tablaVentas.addCell(fecha2);                  
+                    tablaVentas.addCell(fecha2);
                     tablaVentas.addCell(horaEntrada);
                     tablaVentas.addCell(horaSalida);
                     tablaVentas.addCell(Infante);
@@ -204,16 +211,16 @@ public class CorteDeCaja {
         }
     }
 
-    
-private String obtenerConsultaSQL() {
-    return "SELECT * FROM venta WHERE fecha = ?";
-}
+    private String obtenerConsultaSQL() {
+        // Implementar la consulta SQL según tus necesidades
+        return "SELECT folio, tiempo, tipo_pago, monto_total, fecha, hora_entrada, hora_salida, nom_infante FROM venta WHERE fecha = ?";
+    }
 
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         CorteDeCaja reporte = new CorteDeCaja();
         reporte.generarReporte();
-    }
+    }*/
 }
 
 
